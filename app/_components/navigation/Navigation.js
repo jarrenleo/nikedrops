@@ -1,31 +1,24 @@
 "use client";
 
 import { useState } from "react";
-import Logo from "./Logo";
 import SearchBar from "./SearchBar";
-import CountrySelect from "./CountrySelect";
+import ThemeToggle from "./ThemeToggle";
 import BackButton from "./BackButton";
 
 export default function Navigation() {
   const [isSearchBarExpanded, setIsSearchBarExpanded] = useState(false);
 
   return (
-    <div className="border-b-[1px] border-muted p-4">
+    <div className="mb-4 flex items-center justify-end gap-1">
       {!isSearchBarExpanded ? (
-        <div className="flex items-center justify-between">
-          <Logo />
-          <div className="flex gap-2">
-            <SearchBar setIsSearchBarExpanded={setIsSearchBarExpanded} />
-            <CountrySelect />
-          </div>
-        </div>
+        <SearchBar setIsSearchBarExpanded={setIsSearchBarExpanded} />
       ) : (
-        <div className="flex items-center justify-between gap-2">
+        <div className="flex flex-grow items-center gap-1">
           <BackButton setIsSearchBarExpanded={setIsSearchBarExpanded} />
           <SearchBar isSearchBarExpanded={isSearchBarExpanded} />
-          <CountrySelect />
         </div>
       )}
+      <ThemeToggle />
     </div>
   );
 }
