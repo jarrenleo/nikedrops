@@ -1,7 +1,7 @@
 import { GeistMono } from "geist/font/mono";
-import "./globals.css";
 import QueryProvider from "./_providers/QueryProvider";
 import ThemeProvider from "./_providers/ThemeProvider";
+import "./globals.css";
 
 export const metadata = {
   title: "Sneakify",
