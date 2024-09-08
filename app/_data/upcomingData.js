@@ -217,10 +217,13 @@ export async function getUpcomingData(channel, country, timeZone) {
     const upcomingProductsSortedByDateTime = upcomingProducts.sort(
       (a, b) => a.dateTimeObject - b.dateTimeObject,
     );
-    const upcomingProductsGroupedByDate = Object.groupBy(
-      upcomingProductsSortedByDateTime,
-      ({ releaseDate }) => releaseDate,
-    );
+    const upcomingProductsGroupedByDate =
+      upcomingProductsSortedByDateTime.reduce((acc, product) => {
+        if (!acc[product.releaseDate]) acc[product.releaseDate] = [];
+        acc[product.releaseDate].push(product);
+
+        return acc;
+      }, {});
 
     return upcomingProductsGroupedByDate;
   } catch (error) {
