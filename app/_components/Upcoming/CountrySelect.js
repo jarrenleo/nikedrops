@@ -28,7 +28,7 @@ export default function CountrySelect() {
 
   useEffect(() => {
     router.push(`?${createQueryString("country", value)}`);
-  }, [value]);
+  }, [router, createQueryString, value]);
 
   return (
     <Select onValueChange={setValue} defaultValue={value}>
