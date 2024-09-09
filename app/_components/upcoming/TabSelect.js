@@ -1,47 +1,43 @@
 "use client";
 
-import { useCallback } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
+
+function Tab({ channel, channelName, handleTabClick }) {
+  return (
+    <button
+      className={`border-b-2 px-4 py-2 ${
+        channel === channelName
+          ? "border-primary"
+          : "border-transparent text-muted-foreground"
+      }`}
+      onClick={() => handleTabClick(channelName)}
+    >
+      {channelName}
+    </button>
+  );
+}
 
 export default function TabSelect() {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  const params = useParams();
+  const [channel, country] = params.slug.split("_");
 
-  const createQueryString = useCallback(
-    (name, value) => {
-      const params = new URLSearchParams(searchParams);
-      params.set(name, value);
-      return params.toString();
-    },
-    [searchParams],
-  );
-
-  function handleTabClick(tab) {
-    router.push(`?${createQueryString("channel", tab)}`);
+  function handleTabClick(channelName) {
+    router.push(`/${channelName}_${country}`);
   }
 
   return (
     <div className="flex border-b border-secondary font-semibold">
-      <button
-        className={`border-b-2 px-4 py-2 ${
-          searchParams.get("channel") === "SNKRS Web"
-            ? "border-primary"
-            : "border-transparent text-muted-foreground"
-        }`}
-        onClick={() => handleTabClick("SNKRS Web")}
-      >
-        SNKRS
-      </button>
-      <button
-        className={`border-b-2 px-4 py-2 ${
-          searchParams.get("channel") === "Nike.com"
-            ? "border-primary"
-            : "border-transparent text-muted-foreground"
-        }`}
-        onClick={() => handleTabClick("Nike.com")}
-      >
-        Nike
-      </button>
+      <Tab
+        channel={channel}
+        channelName="SNKRS"
+        handleTabClick={handleTabClick}
+      />
+      <Tab
+        channel={channel}
+        channelName="NIKE"
+        handleTabClick={handleTabClick}
+      />
     </div>
   );
 }

@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { useRouter, useParams } from "next/navigation";
+import Image from "next/image";
 import {
   Select,
   SelectContent,
@@ -14,31 +15,32 @@ const countries = ["SG", "MY", "JP", "KR", "FR", "GB", "CA", "US"];
 
 export default function CountrySelect() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const [value, setValue] = useState(searchParams.get("country"));
+  const params = useParams();
+  const [channel, country] = params.slug.split("_");
+  const [selectedCountry, setSelectedCountry] = useState(country);
 
-  const createQueryString = useCallback(
-    (name, value) => {
-      const params = new URLSearchParams(searchParams);
-      params.set(name, value);
-      return params.toString();
-    },
-    [searchParams],
-  );
-
-  useEffect(() => {
-    router.push(`?${createQueryString("country", value)}`);
-  }, [router, createQueryString, value]);
+  function handleCountryChange(selectedCountry) {
+    setSelectedCountry(selectedCountry);
+    router.push(`/${channel}_${selectedCountry}`);
+  }
 
   return (
-    <Select onValueChange={setValue} defaultValue={value}>
+    <Select value={selectedCountry} onValueChange={handleCountryChange}>
       <SelectTrigger>
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
         {countries.map((country) => (
           <SelectItem value={country} key={country}>
-            <span>{country}</span>
+            <div className="flex items-center gap-2">
+              <Image
+                src={`https://flagcdn.com/${country.toLowerCase()}.svg`}
+                alt={country}
+                width={20}
+                height={15}
+              />
+              <span>{country}</span>
+            </div>
           </SelectItem>
         ))}
       </SelectContent>

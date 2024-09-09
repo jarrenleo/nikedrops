@@ -6,7 +6,7 @@ export default function UpcomingListItem({ product }) {
   return (
     <li
       key={id}
-      className="flex cursor-pointer items-center justify-start gap-3 rounded-md px-2 py-3 hover:bg-secondary"
+      className="flex cursor-pointer items-center justify-start gap-3 rounded-md px-2 py-3 transition-colors hover:bg-secondary"
     >
       <Image
         src={imageUrl}
