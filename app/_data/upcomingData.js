@@ -1,10 +1,5 @@
 import { randomUUID } from "crypto";
 
-const channels = {
-  SNKRS: "SNKRS Web",
-  NIKE: "Nike.com",
-};
-
 const locales = {
   SG: "en-SG",
   MY: "en-MY",
@@ -79,11 +74,13 @@ function extractPublishedName(country, sku, publishedContent) {
     publishedName = `${subtitle} '${title}'`;
   } else {
     const seoTitle = publishedContent.properties.seo.title;
-    if (!seoTitle.includes(sku)) return;
+    if (!seoTitle.includes(`(${sku})`)) return;
 
     let startIndex = 0;
-    if (country === "JP" && seoTitle.includes("NIKE公式")) startIndex = 8;
-    const endIndex = seoTitle.indexOf(sku) - 2;
+    let indexToDeduct = 2;
+    if (country === "KR") indexToDeduct = 1;
+
+    const endIndex = seoTitle.indexOf(sku) - indexToDeduct;
 
     publishedName = seoTitle.slice(startIndex, endIndex);
   }
@@ -134,15 +131,13 @@ function formatImageUrl(sku) {
 
 export async function getUpcomingData(channel, country, timeZone) {
   try {
-    console.log(channel);
-    const channelName = channels[channel];
     const language = languages[country];
 
-    if (!channelName) throw new Error("Channel unsupported.");
-    if (!language) throw new Error("Country unsupported.");
+    if (!channel) throw new Error("Unsupported channel.");
+    if (!language) throw new Error("Unsuported country.");
 
     const upcomingData = await fetchUpcomingData(
-      `https://api.nike.com/product_feed/threads/v3/?count=100&filter=marketplace(${country})&filter=language(${language})&filter=upcoming(true)&filter=channelName(${channelName})&filter=exclusiveAccess(true,false)&sort=productInfo.merchProduct.commerceStartDateAsc`,
+      `https://api.nike.com/product_feed/threads/v3/?count=100&filter=marketplace(${country})&filter=language(${language})&filter=upcoming(true)&filter=channelName(${channel})&filter=exclusiveAccess(true,false)&sort=productInfo.merchProduct.commerceStartDateAsc`,
     );
 
     const upcomingProducts = [];
@@ -192,6 +187,9 @@ export async function getUpcomingData(channel, country, timeZone) {
         });
       }
     }
+
+    if (!upcomingProducts.length)
+      throw new Error("There are no upcoming releases");
 
     const upcomingProductsSortedByDateTime = upcomingProducts.sort(
       (a, b) => a.dateTimeObject - b.dateTimeObject,

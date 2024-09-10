@@ -22,7 +22,7 @@ function setLocalStorage(key, value) {
 }
 
 const initialState = {
-  channel: getLocalStorage("channel", "SNKRS"),
+  channel: getLocalStorage("channel", "SNKRS Web"),
   country: getLocalStorage("country", "SG"),
   sku: undefined,
   timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,

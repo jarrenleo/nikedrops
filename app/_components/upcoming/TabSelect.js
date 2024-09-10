@@ -2,15 +2,20 @@
 
 import { useGlobalState } from "@/app/_providers/ContextProvider";
 
+const channelMap = {
+  SNKRS: "SNKRS Web",
+  NIKE: "Nike.com",
+};
+
 function Tab({ channelName, channel, setChannel }) {
   return (
     <button
       className={`border-b-2 px-4 py-2 ${
-        channelName === channel
+        channelMap[channelName] === channel
           ? "border-primary"
           : "border-transparent text-muted-foreground"
       }`}
-      onClick={() => setChannel(channelName)}
+      onClick={() => setChannel(channelMap[channelName])}
     >
       {channelName}
     </button>
