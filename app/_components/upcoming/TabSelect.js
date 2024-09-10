@@ -1,16 +1,16 @@
 "use client";
 
-import { useRouter, useParams } from "next/navigation";
+import { useGlobalState } from "@/app/_providers/ContextProvider";
 
-function Tab({ channel, channelName, handleTabClick }) {
+function Tab({ channelName, channel, setChannel }) {
   return (
     <button
       className={`border-b-2 px-4 py-2 ${
-        channel === channelName
+        channelName === channel
           ? "border-primary"
           : "border-transparent text-muted-foreground"
       }`}
-      onClick={() => handleTabClick(channelName)}
+      onClick={() => setChannel(channelName)}
     >
       {channelName}
     </button>
@@ -18,26 +18,12 @@ function Tab({ channel, channelName, handleTabClick }) {
 }
 
 export default function TabSelect() {
-  const router = useRouter();
-  const params = useParams();
-  const [channel, country] = params.slug.split("_");
-
-  function handleTabClick(channelName) {
-    router.push(`/${channelName}_${country}`);
-  }
+  const { channel, setChannel } = useGlobalState();
 
   return (
     <div className="flex border-b border-secondary font-semibold">
-      <Tab
-        channel={channel}
-        channelName="SNKRS"
-        handleTabClick={handleTabClick}
-      />
-      <Tab
-        channel={channel}
-        channelName="NIKE"
-        handleTabClick={handleTabClick}
-      />
+      <Tab channelName="SNKRS" channel={channel} setChannel={setChannel} />
+      <Tab channelName="NIKE" channel={channel} setChannel={setChannel} />
     </div>
   );
 }

@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter, useParams } from "next/navigation";
 import Image from "next/image";
+import { useGlobalState } from "@/app/_providers/ContextProvider";
 import {
   Select,
   SelectContent,
@@ -14,18 +13,10 @@ import {
 const countries = ["SG", "MY", "JP", "KR", "FR", "GB", "CA", "US"];
 
 export default function CountrySelect() {
-  const router = useRouter();
-  const params = useParams();
-  const [channel, country] = params.slug.split("_");
-  const [selectedCountry, setSelectedCountry] = useState(country);
-
-  function handleCountryChange(selectedCountry) {
-    setSelectedCountry(selectedCountry);
-    router.push(`/${channel}_${selectedCountry}`);
-  }
+  const { country, setCountry } = useGlobalState();
 
   return (
-    <Select value={selectedCountry} onValueChange={handleCountryChange}>
+    <Select value={country} onValueChange={(country) => setCountry(country)}>
       <SelectTrigger>
         <SelectValue />
       </SelectTrigger>
@@ -38,6 +29,7 @@ export default function CountrySelect() {
                 alt={country}
                 width={20}
                 height={15}
+                className="border border-border"
               />
               <span>{country}</span>
             </div>

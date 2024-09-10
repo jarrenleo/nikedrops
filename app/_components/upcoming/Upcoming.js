@@ -1,3 +1,5 @@
+"use client";
+
 import TabSelect from "./TabSelect";
 import UpcomingList from "./UpcomingList";
 import CountrySelect from "./CountrySelect";

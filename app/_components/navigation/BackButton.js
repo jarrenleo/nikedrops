@@ -6,7 +6,7 @@ export default function BackButton({ setIsSearchBarExpanded }) {
       className="rounded-md p-2 transition-colors hover:bg-secondary"
       onClick={() => setIsSearchBarExpanded(false)}
     >
-      <ArrowLeft size="20" />
+      <ArrowLeft />
     </button>
   );
 }

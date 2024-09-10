@@ -1,5 +1,10 @@
 import { randomUUID } from "crypto";
 
+const channels = {
+  SNKRS: "SNKRS Web",
+  NIKE: "Nike.com",
+};
+
 const locales = {
   SG: "en-SG",
   MY: "en-MY",
@@ -63,38 +68,6 @@ async function fetchUpcomingData(url, upcomingData = []) {
   } catch (error) {
     throw Error(error.message);
   }
-}
-
-export async function getFirstUpcomingSKU(channel, country) {
-  const language = languages[country];
-  const upcomingData = await fetchUpcomingData(
-    `https://api.nike.com/product_feed/threads/v3/?count=100&filter=marketplace(${country})&filter=language(${language})&filter=upcoming(true)&filter=channelName(${channel})&filter=exclusiveAccess(true,false)&sort=productInfo.merchProduct.commerceStartDateAsc`,
-  );
-
-  const upcomingProducts = [];
-
-  for (const data of upcomingData) {
-    const productsInfo = data?.productInfo;
-    if (!productsInfo) continue;
-
-    for (const productInfo of productsInfo) {
-      if (productInfo.merchProduct.status === "CLOSEOUT") continue;
-
-      const sku = productInfo.merchProduct.styleColor;
-      const dateTimeObject = new Date(
-        productInfo.launchView?.startEntryDate ||
-          productInfo.merchProduct.commerceStartDate,
-      );
-
-      upcomingProducts.push({
-        sku,
-        dateTimeObject,
-      });
-    }
-  }
-
-  return upcomingProducts.sort((a, b) => a.dateTimeObject - b.dateTimeObject)[0]
-    .sku;
 }
 
 function extractPublishedName(country, sku, publishedContent) {
@@ -161,9 +134,15 @@ function formatImageUrl(sku) {
 
 export async function getUpcomingData(channel, country, timeZone) {
   try {
+    console.log(channel);
+    const channelName = channels[channel];
     const language = languages[country];
+
+    if (!channelName) throw new Error("Channel unsupported.");
+    if (!language) throw new Error("Country unsupported.");
+
     const upcomingData = await fetchUpcomingData(
-      `https://api.nike.com/product_feed/threads/v3/?count=100&filter=marketplace(${country})&filter=language(${language})&filter=upcoming(true)&filter=channelName(${channel})&filter=exclusiveAccess(true,false)&sort=productInfo.merchProduct.commerceStartDateAsc`,
+      `https://api.nike.com/product_feed/threads/v3/?count=100&filter=marketplace(${country})&filter=language(${language})&filter=upcoming(true)&filter=channelName(${channelName})&filter=exclusiveAccess(true,false)&sort=productInfo.merchProduct.commerceStartDateAsc`,
     );
 
     const upcomingProducts = [];

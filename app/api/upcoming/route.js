@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server";
-import { mapChannel } from "@/app/_lib/utils";
 import { getUpcomingData } from "@/app/_data/upcomingData";
 
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
-    const channel = mapChannel(searchParams.get("channel"));
+    const channel = searchParams.get("channel");
     const country = searchParams.get("country");
     const timeZone = searchParams.get("timeZone");
 

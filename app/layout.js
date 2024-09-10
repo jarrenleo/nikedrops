@@ -1,6 +1,7 @@
 import { GeistMono } from "geist/font/mono";
 import QueryProvider from "./_providers/QueryProvider";
 import ThemeProvider from "./_providers/ThemeProvider";
+import ContextProvider from "./_providers/ContextProvider";
 import "./globals.css";
 
 export const metadata = {
@@ -19,7 +20,7 @@ export default function RootLayout({ children }) {
             enableSystem
             disableTransitionOnChange
           >
-            {children}
+            <ContextProvider>{children}</ContextProvider>
           </ThemeProvider>
         </QueryProvider>
       </body>
