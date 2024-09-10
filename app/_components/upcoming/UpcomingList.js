@@ -40,7 +40,7 @@ export default function UpcomingList() {
     );
 
   return (
-    <div className="h-[calc(100vh-10.2rem)] overflow-y-scroll pt-2">
+    <div className="h-[calc(100vh-10.5rem)] overflow-y-scroll pt-2">
       {Object.entries(data).map(([date, products]) => {
         return (
           <ul key={date} className="mb-2">

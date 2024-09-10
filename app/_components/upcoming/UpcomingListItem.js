@@ -13,7 +13,7 @@ export default function UpcomingListItem({ product }) {
         alt={name}
         width={52}
         height={52}
-        className="rounded-full"
+        className="rounded-full border border-border"
       />
       <div className="flex flex-col text-sm">
         <h3 className="line-clamp-1 font-semibold">{name}</h3>
