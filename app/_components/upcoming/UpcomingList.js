@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useGlobalState } from "@/app/_providers/ContextProvider";
 import UpcomingListItem from "./UpcomingListItem";
@@ -20,13 +21,20 @@ async function fetchUpcomingList(channel, country, timeZone) {
 }
 
 export default function UpcomingList() {
-  const { channel, country, timeZone } = useGlobalState();
+  const { channel, country, timeZone, setSKU } = useGlobalState();
 
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["upcomingList", channel, country, timeZone],
     queryFn: () => fetchUpcomingList(channel, country, timeZone),
     staleTime: Infinity,
   });
+
+  useEffect(() => {
+    if (!data) return;
+
+    const firstUpcomingSKU = data[Object.keys(data)[0]][0].sku;
+    setSKU(firstUpcomingSKU);
+  }, [data]);
 
   if (isPending) return <Spinner />;
 

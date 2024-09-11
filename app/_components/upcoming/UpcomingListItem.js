@@ -1,14 +1,16 @@
-import Image from "next/image";
+import { useGlobalState } from "@/app/_providers/ContextProvider";
 
 export default function UpcomingListItem({ product }) {
+  const { setSKU } = useGlobalState();
   const { id, name, sku, price, releaseTime, imageUrl } = product;
 
   return (
     <li
       key={id}
       className="flex cursor-pointer items-center justify-start gap-3 rounded-md px-2 py-3 transition-colors hover:bg-secondary"
+      onClick={() => setSKU(sku)}
     >
-      <Image
+      <img
         src={imageUrl}
         alt={name}
         width={52}
