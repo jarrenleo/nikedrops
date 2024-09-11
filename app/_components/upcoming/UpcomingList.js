@@ -7,8 +7,6 @@ import Spinner from "../others/Spinner";
 
 async function fetchUpcomingList(channel, country, timeZone) {
   try {
-    // throw new Error("Something went wrong. Please try again later.");
-    // await new Promise((resolve) => setTimeout(resolve, 10000));
     const response = await fetch(
       `/api/upcoming?channel=${channel}&country=${country}&timeZone=${timeZone}`,
     );
