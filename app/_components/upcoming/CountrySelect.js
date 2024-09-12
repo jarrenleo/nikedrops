@@ -1,6 +1,3 @@
-"use client";
-
-import Image from "next/image";
 import { useGlobalState } from "@/app/_providers/ContextProvider";
 import {
   Select,
@@ -24,12 +21,10 @@ export default function CountrySelect() {
         {countries.map((country) => (
           <SelectItem value={country} key={country}>
             <div className="flex items-center gap-2">
-              <Image
+              <img
                 src={`https://flagcdn.com/${country.toLowerCase()}.svg`}
                 alt={country}
-                width={20}
-                height={15}
-                className="border border-border"
+                className="h-[13px] w-5 border border-border object-cover"
               />
               <span>{country}</span>
             </div>

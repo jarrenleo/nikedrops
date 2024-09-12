@@ -2,7 +2,20 @@ import { useGlobalState } from "@/app/_providers/ContextProvider";
 
 export default function UpcomingListItem({ product }) {
   const { setSKU } = useGlobalState();
-  const { id, name, sku, price, releaseTime, imageUrl } = product;
+  const { id, status, name, sku, price, releaseTime, imageUrl } = product;
+
+  function getStatusColour(status) {
+    switch (status) {
+      case "ACTIVE":
+        return "bg-green-600";
+      case "HOLD":
+        return "bg-yellow-500";
+      case "INACTIVE":
+        return "bg-red-600";
+      default:
+        return "transparent";
+    }
+  }
 
   return (
     <li
@@ -10,13 +23,16 @@ export default function UpcomingListItem({ product }) {
       className="flex cursor-pointer items-center justify-start gap-3 rounded-md px-2 py-3 transition-colors hover:bg-secondary"
       onClick={() => setSKU(sku)}
     >
-      <img
-        src={imageUrl}
-        alt={name}
-        width={52}
-        height={52}
-        className="rounded-full border border-border"
-      />
+      <div className="relative">
+        <img
+          src={imageUrl}
+          alt={name}
+          className="h-14 w-14 rounded-full border-2 border-border object-cover"
+        />
+        <div
+          className={`absolute bottom-0 right-0 h-4 w-4 rounded-full border-2 border-border ${getStatusColour(status)}`}
+        ></div>
+      </div>
       <div className="flex flex-col text-sm">
         <h3 className="line-clamp-1 font-semibold">{name}</h3>
         <span>{price}</span>

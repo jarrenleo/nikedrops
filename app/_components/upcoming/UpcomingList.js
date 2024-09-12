@@ -22,18 +22,15 @@ async function fetchUpcomingList(channel, country, timeZone) {
 
 export default function UpcomingList() {
   const { channel, country, timeZone, setSKU } = useGlobalState();
-
   const { isPending, isError, data, error } = useQuery({
-    queryKey: ["upcomingList", channel, country, timeZone],
+    queryKey: ["upcomingList", channel, country],
     queryFn: () => fetchUpcomingList(channel, country, timeZone),
     staleTime: Infinity,
   });
 
   useEffect(() => {
     if (!data) return;
-
-    const firstUpcomingSKU = data[Object.keys(data)[0]][0].sku;
-    setSKU(firstUpcomingSKU);
+    setSKU(data[0]?.sku);
   }, [data]);
 
   if (isPending) return <Spinner />;
@@ -47,16 +44,14 @@ export default function UpcomingList() {
 
   return (
     <div className="h-[calc(100dvh-10.5rem)] overflow-y-scroll pt-2">
-      {Object.entries(data).map(([date, products]) => {
-        return (
-          <ul key={date} className="mb-2">
-            <li className="px-2 py-1 text-sm">{date}</li>
-            {products.map((product) => (
-              <UpcomingListItem key={product.id} product={product} />
-            ))}
-          </ul>
-        );
-      })}
+      {Object.entries(data).map(([date, products]) => (
+        <ul key={date} className="mb-2">
+          <li className="px-2 py-1 text-sm">{date}</li>
+          {products.map((product) => (
+            <UpcomingListItem key={product.id} product={product} />
+          ))}
+        </ul>
+      ))}
     </div>
   );
 }
