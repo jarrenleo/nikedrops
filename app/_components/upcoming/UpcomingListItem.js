@@ -28,7 +28,7 @@ export default function UpcomingListItem({ product }) {
           <img
             src={imageUrl}
             alt={name}
-            className="rounded-full border-2 border-border object-cover"
+            className="h-full w-full rounded-full border-2 border-border object-cover"
           />
         </div>
         <div
