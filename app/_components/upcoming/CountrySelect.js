@@ -1,3 +1,5 @@
+"use client";
+
 import { useGlobalState } from "@/app/_providers/ContextProvider";
 import {
   Select,
