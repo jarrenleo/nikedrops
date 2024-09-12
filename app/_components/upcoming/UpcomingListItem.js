@@ -24,11 +24,13 @@ export default function UpcomingListItem({ product }) {
       onClick={() => setSKU(sku)}
     >
       <div className="relative">
-        <img
-          src={imageUrl}
-          alt={name}
-          className="h-14 w-14 rounded-full border-2 border-border object-cover"
-        />
+        <div className="h-14 w-14">
+          <img
+            src={imageUrl}
+            alt={name}
+            className="rounded-full border-2 border-border object-cover"
+          />
+        </div>
         <div
           className={`absolute bottom-0 right-0 h-4 w-4 rounded-full border-2 border-border ${getStatusColour(status)}`}
         ></div>
