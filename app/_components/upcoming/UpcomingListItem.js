@@ -1,27 +1,17 @@
-import { useGlobalState } from "@/app/_providers/ContextProvider";
+"use client";
+
+import { useRouter } from "next/navigation";
+import { getStatusColour } from "@/app/_lib/utils";
 
 export default function UpcomingListItem({ product }) {
-  const { setSKU } = useGlobalState();
+  const router = useRouter();
   const { id, status, name, sku, price, releaseTime, imageUrl } = product;
-
-  function getStatusColour(status) {
-    switch (status) {
-      case "ACTIVE":
-        return "bg-green-600";
-      case "HOLD":
-        return "bg-yellow-500";
-      case "INACTIVE":
-        return "bg-red-600";
-      default:
-        return "transparent";
-    }
-  }
 
   return (
     <li
       key={id}
-      className="flex cursor-pointer items-center justify-start gap-3 rounded-md px-2 py-3 transition-colors hover:bg-secondary"
-      onClick={() => setSKU(sku)}
+      className="flex cursor-pointer items-center justify-start gap-3 rounded-md px-4 py-3 transition-colors hover:bg-secondary"
+      onClick={() => router.push(`/${sku}`)}
     >
       <div className="relative">
         <div className="h-14 w-14">

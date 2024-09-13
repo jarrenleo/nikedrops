@@ -1,10 +1,10 @@
 import { ArrowLeft } from "lucide-react";
 
-export default function BackButton({ setIsSearchBarExpanded }) {
+export default function BackButton({ onClick }) {
   return (
     <button
       className="rounded-md p-2 transition-colors hover:bg-secondary"
-      onClick={() => setIsSearchBarExpanded(false)}
+      onClick={onClick}
     >
       <ArrowLeft />
     </button>

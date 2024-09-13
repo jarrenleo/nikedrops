@@ -35,3 +35,16 @@ export function formatDateTime(dateTimeObject, country, timeZone) {
     timeFormatter.format(dateTimeObject).toUpperCase(),
   ];
 }
+
+export function getStatusColour(status) {
+  switch (status) {
+    case "ACTIVE":
+      return "bg-green-600";
+    case "HOLD":
+      return "bg-yellow-500";
+    case "INACTIVE":
+      return "bg-red-600";
+    default:
+      return "bg-border";
+  }
+}

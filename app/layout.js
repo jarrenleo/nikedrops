@@ -2,6 +2,7 @@ import { GeistMono } from "geist/font/mono";
 import QueryProvider from "./_providers/QueryProvider";
 import ThemeProvider from "./_providers/ThemeProvider";
 import ContextProvider from "./_providers/ContextProvider";
+import Navigation from "./_components/navigation/Navigation";
 import "./globals.css";
 
 export const metadata = {
@@ -20,7 +21,12 @@ export default function RootLayout({ children }) {
             enableSystem
             disableTransitionOnChange
           >
-            <ContextProvider>{children}</ContextProvider>
+            <ContextProvider>
+              <main>
+                <Navigation />
+                {children}
+              </main>
+            </ContextProvider>
           </ThemeProvider>
         </QueryProvider>
       </body>

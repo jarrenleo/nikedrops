@@ -24,7 +24,6 @@ function setLocalStorage(key, value) {
 const initialState = {
   channel: getLocalStorage("channel", "SNKRS Web"),
   country: getLocalStorage("country", "SG"),
-  sku: undefined,
   timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 };
 
@@ -34,8 +33,6 @@ function reducer(state, action) {
       return { ...state, channel: action.payload };
     case "setCountry":
       return { ...state, country: action.payload };
-    case "setSKU":
-      return { ...state, sku: action.payload };
     default:
       throw new Error("Invalid action type");
   }
@@ -43,7 +40,7 @@ function reducer(state, action) {
 
 export default function ContextProvider({ children }) {
   const [isClient, setIsClient] = useState(false);
-  const [{ channel, country, sku, timeZone }, dispatch] = useReducer(
+  const [{ channel, country, timeZone }, dispatch] = useReducer(
     reducer,
     initialState,
   );
@@ -64,20 +61,14 @@ export default function ContextProvider({ children }) {
     setLocalStorage("country", country);
   }
 
-  function setSKU(sku) {
-    dispatch({ type: "setSKU", payload: sku });
-  }
-
   return (
     <GlobalContext.Provider
       value={{
         channel,
         country,
-        sku,
         timeZone,
         setChannel,
         setCountry,
-        setSKU,
       }}
     >
       {children}
