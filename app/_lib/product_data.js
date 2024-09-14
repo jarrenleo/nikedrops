@@ -65,6 +65,8 @@ function extractPublishedName(country, sku, publishedContent) {
     if (!seoTitle.includes(`(${sku})`)) return;
 
     let startIndex = 0;
+    if (country === "FR") startIndex = 21;
+
     let indexToDeduct = 2;
     if (country === "KR") indexToDeduct = 1;
 
