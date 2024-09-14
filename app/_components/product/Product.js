@@ -3,13 +3,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { useGlobalState } from "@/app/_providers/ContextProvider";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/app/_components/others/Carousel";
 import { getStatusColour } from "@/app/_lib/utils";
 import Spinner from "@/app/_components/others/Spinner";
 
@@ -77,7 +70,7 @@ export default function Product() {
   ];
 
   return (
-    <div className="mb-8 px-4">
+    <div className="mb-8 mt-4 px-4 sm:mx-auto sm:max-w-xl">
       <div className="relative mb-4 aspect-square">
         <img
           src={imageUrl}
@@ -92,22 +85,24 @@ export default function Product() {
           {status}
         </div>
       </div>
-      <h2 className="mb-4 text-balance font-semibold">{name}</h2>
-      <div className="mb-4 grid grid-cols-2 gap-4">
-        {productDetails.map(({ label, value }) => (
-          <ProductDetail key={label} label={label} value={value} />
-        ))}
-      </div>
       <div>
-        <span className="text-xs text-muted-foreground">
-          Sizes and Stock Levels
-        </span>
-        <div className="grid grid-cols-3 gap-2">
-          {sizesAndStockLevels.length
-            ? sizesAndStockLevels.map(({ size, stockLevel }) => (
-                <ProductDetail key={size} label={size} value={stockLevel} />
-              ))
-            : "-"}
+        <h2 className="mb-4 text-balance font-semibold">{name}</h2>
+        <div className="mb-4 grid grid-cols-2 gap-4">
+          {productDetails.map(({ label, value }) => (
+            <ProductDetail key={label} label={label} value={value} />
+          ))}
+        </div>
+        <div>
+          <span className="text-xs text-muted-foreground">
+            Sizes and Stock Levels
+          </span>
+          <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
+            {sizesAndStockLevels.length
+              ? sizesAndStockLevels.map(({ size, stockLevel }) => (
+                  <ProductDetail key={size} label={size} value={stockLevel} />
+                ))
+              : "-"}
+          </div>
         </div>
       </div>
     </div>

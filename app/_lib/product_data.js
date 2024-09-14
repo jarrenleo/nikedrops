@@ -36,10 +36,10 @@ const languages = {
 async function fetchData(url) {
   try {
     const response = await fetch(url);
-    if (!response.ok) throw new Error("Failed to fetch nike data");
+    if (!response.ok) throw new Error("Failed to fetch product data.");
 
     const data = await response.json();
-    if (!data.objects.length) throw new Error("No products found");
+    if (!data.objects.length) throw new Error("Product not found.");
 
     return data;
   } catch (error) {

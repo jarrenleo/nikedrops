@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
             disableTransitionOnChange
           >
             <ContextProvider>
-              <main>
+              <main className="mx-auto max-w-4xl">
                 <Navigation />
                 {children}
               </main>
