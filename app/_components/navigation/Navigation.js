@@ -14,7 +14,7 @@ export default function Navigation() {
   if (pathname !== "/" && !isSearchBarExpanded)
     return (
       <nav className="flex items-center justify-between gap-1 p-4">
-        <BackButton onClick={() => router.back()} />
+        <BackButton onClick={() => router.push("/")} />
         <div className="flex gap-1">
           <SearchBar
             isSearchBarExpanded={isSearchBarExpanded}

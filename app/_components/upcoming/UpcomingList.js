@@ -28,7 +28,6 @@ export default function UpcomingList() {
   });
 
   if (isPending) return <Spinner />;
-
   if (isError)
     return (
       <div className="mt-4 text-balance text-center font-semibold">
@@ -42,7 +41,9 @@ export default function UpcomingList() {
         <ul key={date} className="mb-2">
           <li className="px-4 py-1 text-sm">{date}</li>
           {products.map((product) => (
-            <UpcomingListItem key={product.id} product={product} />
+            <li key={product.id}>
+              <UpcomingListItem product={product} />
+            </li>
           ))}
         </ul>
       ))}

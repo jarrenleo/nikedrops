@@ -46,7 +46,6 @@ export default function Product() {
   });
 
   if (isPending) return <Spinner />;
-
   if (isError)
     return (
       <div className="mt-4 text-balance text-center font-semibold">
@@ -57,61 +56,58 @@ export default function Product() {
   const {
     status,
     name,
-    releaseDate,
-    releaseTime,
+    date,
+    time,
     sku,
     price,
-    releaseMethod,
-    quantityLimit,
+    method,
+    cartLimit,
     sizesAndStockLevels,
     productUrl,
     imageUrl,
   } = data;
 
+  const productDetails = [
+    { label: "Price", value: price },
+    { label: "SKU", value: sku },
+    { label: "Method", value: method },
+    { label: "Cart Limit", value: cartLimit },
+    { label: "Date", value: date },
+    { label: "Time", value: time },
+  ];
+
   return (
-    <div className="p-4">
-      <Carousel className="relative mb-4 overflow-x-hidden">
-        <CarouselContent className="aspect-square">
-          <CarouselItem>
-            <img
-              src={imageUrl}
-              alt={name}
-              className="h-full w-full rounded-md border border-border object-cover"
-            />
-          </CarouselItem>
-          <CarouselItem>
-            <img
-              src={imageUrl}
-              alt={name}
-              className="h-full w-full rounded-md border border-border object-cover"
-            />
-          </CarouselItem>
-        </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+    <div className="mb-8 px-4">
+      <div className="relative mb-4 aspect-square">
+        <img
+          src={imageUrl}
+          alt={name}
+          className="h-full w-full rounded-md border border-border object-cover"
+        />
         <div
-          className={`absolute left-2 top-2 z-10 rounded-md px-2 py-1 text-xs ${getStatusColour(status)}`}
+          className={`absolute left-2 top-2 rounded-md bg-background px-2 py-1 text-xs font-semibold ${getStatusColour(
+            status,
+          )}`}
         >
           {status}
         </div>
-      </Carousel>
+      </div>
       <h2 className="mb-4 text-balance font-semibold">{name}</h2>
       <div className="mb-4 grid grid-cols-2 gap-4">
-        <ProductDetail label="Price" value={price} />
-        <ProductDetail label="SKU" value={sku} />
-        <ProductDetail label="Method" value={releaseMethod} />
-        <ProductDetail label="Cart Limit" value={quantityLimit} />
-        <ProductDetail label="Date" value={releaseDate} />
-        <ProductDetail label="Time" value={releaseTime} />
+        {productDetails.map(({ label, value }) => (
+          <ProductDetail key={label} label={label} value={value} />
+        ))}
       </div>
       <div>
         <span className="text-xs text-muted-foreground">
           Sizes and Stock Levels
         </span>
         <div className="grid grid-cols-3 gap-2">
-          {sizesAndStockLevels.map(({ size, stockLevel }) => (
-            <ProductDetail key={size} label={size} value={stockLevel} />
-          ))}
+          {sizesAndStockLevels.length
+            ? sizesAndStockLevels.map(({ size, stockLevel }) => (
+                <ProductDetail key={size} label={size} value={stockLevel} />
+              ))
+            : "-"}
         </div>
       </div>
     </div>

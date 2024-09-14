@@ -1,17 +1,13 @@
-"use client";
-
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { getStatusColour } from "@/app/_lib/utils";
 
 export default function UpcomingListItem({ product }) {
-  const router = useRouter();
-  const { id, status, name, sku, price, releaseTime, imageUrl } = product;
+  const { status, name, sku, price, releaseTime, imageUrl } = product;
 
   return (
-    <li
-      key={id}
+    <Link
+      href={`/${sku}`}
       className="flex cursor-pointer items-center justify-start gap-3 rounded-md px-4 py-3 transition-colors hover:bg-secondary"
-      onClick={() => router.push(`/${sku}`)}
     >
       <div className="relative">
         <div className="h-14 w-14">
@@ -32,6 +28,6 @@ export default function UpcomingListItem({ product }) {
           {releaseTime} &#10072; {sku}
         </span>
       </div>
-    </li>
+    </Link>
   );
 }

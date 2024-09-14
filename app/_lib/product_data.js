@@ -166,18 +166,14 @@ export async function getProductData(channel, sku, country, timeZone) {
       productInfo.launchView?.startEntryDate ||
         productInfo.merchProduct.commerceStartDate,
     );
-    const [releaseDate, releaseTime] = formatDateTime(
-      dateTimeObject,
-      country,
-      timeZone,
-    );
+    const [date, time] = formatDateTime(dateTimeObject, country, timeZone);
     const price = formatPrice(
       +productInfo.merchPrice.currentPrice,
       country,
       productInfo.merchPrice.currency,
     );
-    const releaseMethod = extractReleaseMethod(productInfo);
-    const quantityLimit = productInfo.merchProduct.quantityLimit;
+    const method = extractReleaseMethod(productInfo);
+    const cartLimit = productInfo.merchProduct.quantityLimit;
     const sizesAndStockLevels = extractSizesAndStockLevels(
       productInfo.skus,
       productInfo.availableGtins,
@@ -195,12 +191,12 @@ export async function getProductData(channel, sku, country, timeZone) {
     return {
       status,
       name,
-      releaseDate,
-      releaseTime,
+      date,
+      time,
       sku,
       price,
-      releaseMethod,
-      quantityLimit,
+      method,
+      cartLimit,
       sizesAndStockLevels,
       productUrl,
       imageUrl,
