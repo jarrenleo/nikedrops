@@ -7,7 +7,7 @@ import "./globals.css";
 
 export const metadata = {
   title: "Sneakify",
-  description: "A user-friendly tool to view Nike products.",
+  description: "SNKRS/Nike Calendar App",
 };
 
 export default function RootLayout({ children }) {

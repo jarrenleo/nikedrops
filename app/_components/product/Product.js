@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { useGlobalState } from "@/app/_providers/ContextProvider";
 import { getStatusColour } from "@/app/_lib/utils";
+import ProductLink from "@/app/_components/product/ProductLink";
 import Spinner from "@/app/_components/others/Spinner";
 
 async function fetchProduct(channel, country, sku, timeZone) {
@@ -86,7 +87,8 @@ export default function Product() {
         </div>
       </div>
       <div>
-        <h2 className="mb-4 text-balance font-semibold">{name}</h2>
+        <h2 className="mb-2 text-balance font-semibold">{name}</h2>
+        <ProductLink sku={sku} productUrl={productUrl} />
         <div className="mb-4 grid grid-cols-2 gap-4">
           {productDetails.map(({ label, value }) => (
             <ProductDetail key={label} label={label} value={value} />
@@ -94,7 +96,7 @@ export default function Product() {
         </div>
         <div>
           <span className="text-xs text-muted-foreground">
-            Sizes and Stock Levels
+            Sizes & Stock Levels
           </span>
           <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
             {sizesAndStockLevels.length
