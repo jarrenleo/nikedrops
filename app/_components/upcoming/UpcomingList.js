@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useGlobalState } from "@/app/_providers/ContextProvider";
 import UpcomingListItem from "./UpcomingListItem";
@@ -27,6 +28,18 @@ export default function UpcomingList() {
     staleTime: Infinity,
   });
 
+  useEffect(() => {
+    const scrollPosition = sessionStorage.getItem("scrollPosition");
+    if (!scrollPosition) return;
+
+    const scrollContainer = document.querySelector(".scroll-container");
+    if (scrollContainer) scrollContainer.scrollTop = +scrollPosition;
+  }, []);
+
+  function handleScroll(e) {
+    sessionStorage.setItem("scrollPosition", e.target.scrollTop);
+  }
+
   if (isPending) return <Spinner />;
   if (isError)
     return (
@@ -36,7 +49,10 @@ export default function UpcomingList() {
     );
 
   return (
-    <div className="h-[calc(100dvh-10.5rem)] overflow-y-scroll pt-2">
+    <div
+      className="scroll-container h-[calc(100dvh-10.5rem)] overflow-y-scroll pt-2"
+      onScroll={handleScroll}
+    >
       {Object.entries(data).map(([date, products]) => (
         <ul key={date} className="mb-2">
           <li className="px-4 py-1 text-sm">{date}</li>
