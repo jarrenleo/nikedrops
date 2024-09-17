@@ -84,9 +84,11 @@ function formProductUrl(channel, country, slug) {
 export async function getProductData(channel, sku, country, timeZone) {
   try {
     const language = languages[country];
+
     const { objects } = await fetchData(
       `https://api.nike.com/product_feed/threads/v3/?filter=marketplace(${country})&filter=language(${language})&filter=channelName(${channel})&filter=productInfo.merchProduct.styleColor(${sku})&filter=exclusiveAccess(true,false)`,
     );
+    if (!objects.length) throw new Error(`Product ${sku} not found.`);
 
     const productInfo = getProductInfo(objects[0].productInfo, sku);
 

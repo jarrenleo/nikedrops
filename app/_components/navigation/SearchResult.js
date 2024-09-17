@@ -7,8 +7,6 @@ import Spinner from "@/app/_components/others/Spinner";
 
 async function searchProduct(searchQuery, country) {
   try {
-    // await new Promise((resolve) => setTimeout(resolve, 5000));
-
     const response = await fetch(
       `/api/search?q=${searchQuery}&country=${country}`,
     );
@@ -28,20 +26,21 @@ export default function SearchResult({ searchQuery }) {
     queryKey: ["search", debouncedQuery],
     queryFn: () => searchProduct(debouncedQuery, country),
     enabled: debouncedQuery.length > 9,
+    retry: false,
   });
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedQuery(searchQuery);
-    }, 1000);
+    }, 300);
 
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
   if (isPending && searchQuery.length > 9)
     return (
-      <div className="absolute left-[60px] top-16 z-10 w-[calc(100%-120px)] rounded-md bg-muted p-4">
-        <Spinner />
+      <div className="absolute left-[60px] top-16 z-10 flex w-[calc(100%-120px)] justify-center rounded-md bg-muted p-4">
+        <Spinner isMini={true} />
       </div>
     );
 

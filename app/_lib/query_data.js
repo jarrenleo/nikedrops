@@ -9,9 +9,11 @@ import {
 export async function getQueryData(channel, sku, country) {
   try {
     const language = languages[country];
+
     const { objects } = await fetchData(
       `https://api.nike.com/product_feed/threads/v3/?filter=marketplace(${country})&filter=language(${language})&filter=channelName(${channel})&filter=productInfo.merchProduct.styleColor(${sku})&filter=exclusiveAccess(true,false)`,
     );
+    if (!objects.length) return null;
 
     const productInfo = getProductInfo(objects[0].productInfo, sku);
     if (!productInfo) return null;

@@ -36,6 +36,7 @@ export default function Product() {
   const { isPending, error, data } = useQuery({
     queryKey: ["product", channel, country, params.sku, timeZone],
     queryFn: () => fetchProduct(channel, country, params.sku, timeZone),
+    retry: false,
     staleTime: Infinity,
   });
 

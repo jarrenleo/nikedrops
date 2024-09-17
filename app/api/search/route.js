@@ -13,7 +13,7 @@ export async function GET(request) {
     const NikeResult = await getQueryData("Nike.com", sku, country);
     if (NikeResult) return NextResponse.json(NikeResult);
 
-    throw new Error(`Product ${sku} not found in ${country}`);
+    throw new Error(`Product ${sku} not found.`);
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

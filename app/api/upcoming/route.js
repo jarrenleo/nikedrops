@@ -38,12 +38,15 @@ export async function GET(request) {
     const country = searchParams.get("country");
     const timeZone = searchParams.get("timeZone");
 
-    const client = await clientPromise;
+    const client = clientPromise;
     const db = client.db("sneakify");
     const upcomingData = await db
       .collection(`${channelMap[channel]}-${country.toLowerCase()}`)
       .find({})
       .toArray();
+
+    if (!upcomingData.length)
+      throw new Error(`No upcoming ${channel} release.`);
 
     return NextResponse.json(
       groupUpcomingDataByDate(upcomingData, country, timeZone),
