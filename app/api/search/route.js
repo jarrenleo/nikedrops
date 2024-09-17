@@ -8,10 +8,12 @@ export async function GET(request) {
     const country = searchParams.get("country");
 
     const SNKRSResult = await getQueryData("SNKRS Web", sku, country);
-    if (SNKRSResult) return NextResponse.json(SNKRSResult);
+    if (SNKRSResult)
+      return NextResponse.json({ channel: "SNKRS Web", ...SNKRSResult });
 
     const NikeResult = await getQueryData("Nike.com", sku, country);
-    if (NikeResult) return NextResponse.json(NikeResult);
+    if (NikeResult)
+      return NextResponse.json({ channel: "Nike.com", ...NikeResult });
 
     throw new Error(`Product ${sku} not found.`);
   } catch (error) {

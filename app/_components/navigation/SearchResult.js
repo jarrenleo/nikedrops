@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { useGlobalState } from "@/app/_providers/ContextProvider";
 import Spinner from "@/app/_components/others/Spinner";
@@ -19,8 +20,12 @@ async function searchProduct(searchQuery, country) {
   }
 }
 
-export default function SearchResult({ searchQuery }) {
-  const { country } = useGlobalState();
+export default function SearchResult({
+  searchQuery,
+  setSearchQuery,
+  setIsSearchBarExpanded,
+}) {
+  const { country, setChannel } = useGlobalState();
   const [debouncedQuery, setDebouncedQuery] = useState(searchQuery);
   const { isPending, error, data } = useQuery({
     queryKey: ["search", debouncedQuery],
@@ -36,6 +41,12 @@ export default function SearchResult({ searchQuery }) {
 
     return () => clearTimeout(timer);
   }, [searchQuery]);
+
+  function handleClick(channel) {
+    setSearchQuery("");
+    setIsSearchBarExpanded(false);
+    setChannel(channel);
+  }
 
   if (isPending && searchQuery.length > 9)
     return (
@@ -53,12 +64,16 @@ export default function SearchResult({ searchQuery }) {
 
   if (debouncedQuery && data)
     return (
-      <div className="absolute left-[60px] top-16 z-10 flex w-[calc(100%-120px)] cursor-pointer items-center gap-2 rounded-md bg-muted p-4">
+      <Link
+        href={`/${data.sku}`}
+        onClick={() => handleClick(data.channel)}
+        className="absolute left-[60px] top-16 z-10 flex w-[calc(100%-120px)] cursor-pointer items-center gap-2 rounded-md bg-muted p-4 transition-colors hover:bg-neutral-700"
+      >
         <div className="h-10 w-10 flex-shrink-0">
           <img
             src={data.imageUrl}
             alt={data.name}
-            className="h-full w-full rounded-full object-cover"
+            className="h-full w-full rounded-full border border-border object-cover"
           />
         </div>
         <div>
@@ -67,6 +82,6 @@ export default function SearchResult({ searchQuery }) {
           </span>
           <span className="text-xs text-muted-foreground">{data.sku}</span>
         </div>
-      </div>
+      </Link>
     );
 }

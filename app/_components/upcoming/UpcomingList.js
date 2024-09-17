@@ -29,15 +29,16 @@ export default function UpcomingList() {
   });
 
   useEffect(() => {
-    const scrollPosition = sessionStorage.getItem("scrollPosition");
+    const scrollPosition = sessionStorage.getItem(`scrollPosition_${channel}`);
+
     if (!scrollPosition) return;
 
     const scrollContainer = document.querySelector(".scroll-container");
     if (scrollContainer) scrollContainer.scrollTop = +scrollPosition;
-  }, []);
+  }, [channel]);
 
   function handleScroll(e) {
-    sessionStorage.setItem("scrollPosition", e.target.scrollTop);
+    sessionStorage.setItem(`scrollPosition_${channel}`, e.target.scrollTop);
   }
 
   if (isPending) return <Spinner />;

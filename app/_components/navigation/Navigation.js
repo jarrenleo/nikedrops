@@ -49,7 +49,13 @@ export default function Navigation() {
         )}
         <ThemeToggle />
       </div>
-      <SearchResult searchQuery={searchQuery} />
+      {isSearchBarExpanded && (
+        <SearchResult
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          setIsSearchBarExpanded={setIsSearchBarExpanded}
+        />
+      )}
     </nav>
   );
 }
