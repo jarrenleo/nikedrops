@@ -1,15 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import SearchBar from "./SearchBar";
 import ThemeToggle from "./ThemeToggle";
 import BackButton from "./BackButton";
+import SearchResult from "./SearchResult";
 
 export default function Navigation() {
   const router = useRouter();
   const pathname = usePathname();
   const [isSearchBarExpanded, setIsSearchBarExpanded] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   if (pathname !== "/" && !isSearchBarExpanded)
     return (
@@ -26,16 +28,28 @@ export default function Navigation() {
     );
 
   return (
-    <nav className="flex items-center justify-end gap-1 p-4">
-      {!isSearchBarExpanded ? (
-        <SearchBar setIsSearchBarExpanded={setIsSearchBarExpanded} />
-      ) : (
-        <div className="flex flex-grow gap-1">
-          <BackButton onClick={() => setIsSearchBarExpanded(false)} />
-          <SearchBar isSearchBarExpanded={isSearchBarExpanded} />
-        </div>
-      )}
-      <ThemeToggle />
+    <nav className="relative">
+      <div className="flex items-center justify-end gap-1 p-4">
+        {!isSearchBarExpanded ? (
+          <SearchBar setIsSearchBarExpanded={setIsSearchBarExpanded} />
+        ) : (
+          <div className="flex flex-grow gap-1">
+            <BackButton
+              onClick={() => {
+                setSearchQuery("");
+                setIsSearchBarExpanded(false);
+              }}
+            />
+            <SearchBar
+              isSearchBarExpanded={isSearchBarExpanded}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+            />
+          </div>
+        )}
+        <ThemeToggle />
+      </div>
+      <SearchResult searchQuery={searchQuery} />
     </nav>
   );
 }

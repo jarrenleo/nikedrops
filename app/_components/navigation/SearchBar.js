@@ -1,14 +1,13 @@
 "use client";
 
-import { useState } from "react";
 import { Search } from "lucide-react";
 
 export default function SearchBar({
   isSearchBarExpanded,
   setIsSearchBarExpanded,
+  searchQuery,
+  setSearchQuery,
 }) {
-  const [searchQuery, setSearchQuery] = useState("");
-
   return (
     <>
       {!isSearchBarExpanded ? (

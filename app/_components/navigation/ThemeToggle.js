@@ -4,7 +4,7 @@ import { useTheme } from "next-themes";
 import { MoonStar, Sun } from "lucide-react";
 
 export default function ThemeToggle() {
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
 
   return (
     <button

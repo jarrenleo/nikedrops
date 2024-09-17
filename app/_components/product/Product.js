@@ -33,14 +33,14 @@ function ProductDetail({ label, value }) {
 export default function Product() {
   const params = useParams();
   const { channel, country, timeZone } = useGlobalState();
-  const { isPending, isError, data, error } = useQuery({
+  const { isPending, error, data } = useQuery({
     queryKey: ["product", channel, country, params.sku, timeZone],
     queryFn: () => fetchProduct(channel, country, params.sku, timeZone),
     staleTime: Infinity,
   });
 
   if (isPending) return <Spinner />;
-  if (isError)
+  if (error)
     return (
       <div className="mt-4 text-balance text-center font-semibold">
         {error.message}

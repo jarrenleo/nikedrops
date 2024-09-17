@@ -1,15 +1,12 @@
-import { formatDateTime } from "./utils";
-
-const locales = {
-  SG: "en-SG",
-  MY: "en-MY",
-  JP: "ja-JP",
-  KR: "ko-KR",
-  FR: "fr-FR",
-  GB: "en-GB",
-  CA: "en-CA",
-  US: "en-US",
-};
+import {
+  locales,
+  languages,
+  fetchData,
+  getProductInfo,
+  extractPublishedName,
+  formatDateTime,
+  extractImageUrl,
+} from "./utils";
 
 const currencies = {
   SG: "SGD",
@@ -21,62 +18,6 @@ const currencies = {
   CA: "CAD",
   US: "USD",
 };
-
-const languages = {
-  SG: "en-GB",
-  MY: "en-GB",
-  JP: "ja",
-  KR: "ko",
-  FR: "fr",
-  GB: "en-GB",
-  CA: "en-GB",
-  US: "en",
-};
-
-async function fetchData(url) {
-  try {
-    const response = await fetch(url);
-    if (!response.ok) throw new Error("Failed to fetch product data.");
-
-    const data = await response.json();
-    if (!data.objects.length) throw new Error("Product not found.");
-
-    return data;
-  } catch (error) {
-    throw Error(error.message);
-  }
-}
-
-function getProductInfo(productsInfo, sku) {
-  return productsInfo.length === 1
-    ? productsInfo[0]
-    : productsInfo.find((product) => product.merchProduct.styleColor === sku);
-}
-
-function extractPublishedName(country, sku, publishedContent) {
-  let publishedName;
-  const title = publishedContent.properties.coverCard.title;
-  const subtitle = publishedContent.properties.coverCard.subtitle;
-
-  if (title && subtitle) {
-    publishedName = `${subtitle} '${title}'`;
-  } else {
-    const seoTitle = publishedContent.properties.seo.title;
-    if (!seoTitle.includes(`(${sku})`)) return;
-
-    let startIndex = 0;
-    if (country === "FR") startIndex = 21;
-
-    let indexToDeduct = 2;
-    if (country === "KR") indexToDeduct = 1;
-
-    const endIndex = seoTitle.indexOf(sku) - indexToDeduct;
-
-    publishedName = seoTitle.slice(startIndex, endIndex);
-  }
-
-  return publishedName;
-}
 
 function formatPrice(price, country) {
   if (!price) return "-";
@@ -138,13 +79,6 @@ function formProductUrl(channel, country, slug) {
   if (channel === "SNKRS Web") launchPath = "/launch";
 
   return `https://www.nike.com${countryPath}${launchPath}/t/${slug}`;
-}
-
-function extractImageUrl(channel, publishedContent) {
-  if (channel === "SNKRS Web")
-    return publishedContent.coverCard.properties.squarishURL;
-
-  return publishedContent.productCard.properties.squarishURL;
 }
 
 export async function getProductData(channel, sku, country, timeZone) {
