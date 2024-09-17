@@ -33,6 +33,7 @@ export async function fetchData(url) {
     if (!response.ok) throw new Error("Failed to fetch product data.");
 
     const data = await response.json();
+    // Might need to remove this
     if (!data.objects.length) throw new Error("Product not found.");
 
     return data;

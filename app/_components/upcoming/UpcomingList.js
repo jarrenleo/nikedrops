@@ -22,7 +22,7 @@ async function fetchUpcomingList(channel, country, timeZone) {
 
 export default function UpcomingList() {
   const { channel, country, timeZone } = useGlobalState();
-  const { isPending, isError, data, error } = useQuery({
+  const { isPending, error, data } = useQuery({
     queryKey: ["upcomingList", channel, country],
     queryFn: () => fetchUpcomingList(channel, country, timeZone),
     staleTime: Infinity,
@@ -41,7 +41,7 @@ export default function UpcomingList() {
   }
 
   if (isPending) return <Spinner />;
-  if (isError)
+  if (error)
     return (
       <div className="mt-4 text-balance text-center font-semibold">
         {error.message}
