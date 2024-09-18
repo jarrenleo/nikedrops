@@ -1,3 +1,7 @@
-export default function Spinner({ isMini = false }) {
-  return <div className={!isMini ? "spinner" : "mini-spinner"}></div>;
+import { ring } from "ldrs";
+
+ring.register();
+
+export default function Spinner({ size, stroke }) {
+  return <l-ring size={size} stroke={stroke} color="white"></l-ring>;
 }

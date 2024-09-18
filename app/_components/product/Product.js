@@ -40,7 +40,12 @@ export default function Product() {
     staleTime: Infinity,
   });
 
-  if (isPending) return <Spinner />;
+  if (isPending)
+    return (
+      <div className="mt-8 flex items-center justify-center">
+        <Spinner size={60} stroke={6} />
+      </div>
+    );
   if (error)
     return (
       <div className="mt-4 text-balance text-center font-semibold">

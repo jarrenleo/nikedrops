@@ -5,6 +5,7 @@ export default function BackButton({ onClick }) {
     <button
       className="rounded-md p-2 transition-colors hover:bg-secondary"
       onClick={onClick}
+      aria-label="Back button"
     >
       <ArrowLeft />
     </button>

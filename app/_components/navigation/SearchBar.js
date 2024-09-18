@@ -14,6 +14,7 @@ export default function SearchBar({
         <button
           className="rounded-md p-2 transition-colors hover:bg-secondary"
           onClick={() => setIsSearchBarExpanded(true)}
+          aria-label="Search button"
         >
           <Search />
         </button>

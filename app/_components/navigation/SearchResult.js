@@ -51,7 +51,7 @@ export default function SearchResult({
   if (isPending && searchQuery.length > 9)
     return (
       <div className="absolute left-[60px] top-16 z-10 flex w-[calc(100%-120px)] justify-center rounded-md bg-muted p-4">
-        <Spinner isMini={true} />
+        <Spinner size={30} stroke={3} />
       </div>
     );
 

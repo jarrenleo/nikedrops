@@ -20,6 +20,11 @@ async function fetchUpcomingList(channel, country, timeZone) {
   }
 }
 
+function setScrollPosition(scrollPosition) {
+  const scrollContainer = document.querySelector(".scroll-container");
+  if (scrollContainer) scrollContainer.scrollTop = +scrollPosition;
+}
+
 export default function UpcomingList() {
   const { channel, country, timeZone } = useGlobalState();
   const { isPending, error, data } = useQuery({
@@ -29,19 +34,31 @@ export default function UpcomingList() {
   });
 
   useEffect(() => {
+    const lastSelectedCountry = sessionStorage.getItem("lastSelectedCountry");
+    if (lastSelectedCountry === country) return;
+
+    setScrollPosition(0);
+    sessionStorage.setItem("scrollPosition_SNKRS Web", 0);
+    sessionStorage.setItem("scrollPosition_Nike.com", 0);
+
+    sessionStorage.setItem("lastSelectedCountry", country);
+  }, [country]);
+
+  useEffect(() => {
     const scrollPosition = sessionStorage.getItem(`scrollPosition_${channel}`);
-
-    if (!scrollPosition) return;
-
-    const scrollContainer = document.querySelector(".scroll-container");
-    if (scrollContainer) scrollContainer.scrollTop = +scrollPosition;
+    if (scrollPosition) setScrollPosition(scrollPosition);
   }, [channel]);
 
   function handleScroll(e) {
     sessionStorage.setItem(`scrollPosition_${channel}`, e.target.scrollTop);
   }
 
-  if (isPending) return <Spinner />;
+  if (isPending)
+    return (
+      <div className="mt-8 flex items-center justify-center">
+        <Spinner size={60} stroke={6} />
+      </div>
+    );
   if (error)
     return (
       <div className="mt-4 text-balance text-center font-semibold">

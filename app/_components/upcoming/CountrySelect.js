@@ -16,7 +16,7 @@ export default function CountrySelect() {
 
   return (
     <Select value={country} onValueChange={(country) => setCountry(country)}>
-      <SelectTrigger>
+      <SelectTrigger aria-label="Country Select">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
@@ -25,7 +25,7 @@ export default function CountrySelect() {
             <div className="flex items-center gap-2">
               <img
                 src={`https://flagcdn.com/${country.toLowerCase()}.svg`}
-                alt={country}
+                alt={`Flag of ${country}`}
                 className="h-[13px] w-5 border border-border object-cover"
               />
               <span>{country}</span>
