@@ -34,14 +34,7 @@ export default function UpcomingList() {
   });
 
   useEffect(() => {
-    const lastSelectedCountry = sessionStorage.getItem("lastSelectedCountry");
-    if (lastSelectedCountry === country) return;
-
     setScrollPosition(0);
-    sessionStorage.setItem("scrollPosition_SNKRS Web", 0);
-    sessionStorage.setItem("scrollPosition_Nike.com", 0);
-
-    sessionStorage.setItem("lastSelectedCountry", country);
   }, [country]);
 
   useEffect(() => {
