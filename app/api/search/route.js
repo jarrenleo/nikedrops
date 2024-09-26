@@ -4,7 +4,7 @@ import { getQueryData } from "@/app/_lib/query_data";
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
-    const sku = searchParams.get("q");
+    const sku = searchParams.get("q").toUpperCase();
     const country = searchParams.get("country");
 
     const SNKRSResult = await getQueryData("SNKRS Web", sku, country);
