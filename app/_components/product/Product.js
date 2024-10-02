@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { useGlobalState } from "@/app/_providers/ContextProvider";
-import { getStatusColour } from "@/app/_lib/utils";
+import { getStatusColour, getStockLevelColour } from "@/app/_lib/utils";
 import ProductLink from "@/app/_components/product/ProductLink";
 import Spinner from "@/app/_components/others/Spinner";
 
@@ -25,7 +25,12 @@ function ProductDetail({ label, value }) {
   return (
     <div className="flex flex-col">
       <span className="text-xs text-muted-foreground">{label}</span>
-      <span className="text-sm">{value}</span>
+      <div className="flex items-center gap-1">
+        <span className={`text-sm`}>{value}</span>
+        <div
+          className={`text-sm ${getStockLevelColour(value)} h-4 w-4 rounded-md`}
+        ></div>
+      </div>
     </div>
   );
 }
@@ -78,7 +83,7 @@ export default function Product() {
 
   return (
     <div className="mb-8 mt-4 px-4 sm:mx-auto sm:max-w-xl">
-      <div className="relative mb-4 aspect-square">
+      <div className="animate-in fade-in relative mb-4 aspect-square duration-300">
         <img
           src={imageUrl}
           alt={name}

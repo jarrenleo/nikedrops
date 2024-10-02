@@ -103,10 +103,25 @@ export function getStatusColour(status) {
     case "ACTIVE":
       return "bg-green-600";
     case "HOLD":
-      return "bg-yellow-500";
+      return "bg-amber-500";
     case "INACTIVE":
       return "bg-red-600";
     default:
       return "bg-border";
+  }
+}
+
+export function getStockLevelColour(status) {
+  switch (status) {
+    case "HIGH":
+      return "bg-green-600";
+    case "MEDIUM":
+      return "bg-amber-500";
+    case "LOW":
+      return "bg-red-600";
+    case "OOS":
+      return "bg-red-600";
+    default:
+      return "bg-transparent";
   }
 }
