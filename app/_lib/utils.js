@@ -97,7 +97,7 @@ export async function extractImageUrl(sku) {
   );
   const imageUrl = response.url.replace(
     "rgb:FFFFFF,q_auto,h_400",
-    "rgb:D4D4D4,q_auto,h_1080",
+    "rgb:D4D4D4,q_auto,h_960",
   );
 
   return imageUrl;
