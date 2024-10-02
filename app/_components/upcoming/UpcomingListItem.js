@@ -46,7 +46,7 @@ function UpcomingCardItem({ product }) {
         />
 
         <span
-          className={`absolute bottom-2 right-2 rounded-md px-2 py-1 text-xs ${getStatusColour(status)}`}
+          className={`absolute bottom-2 right-2 rounded-md px-2 py-1 text-xs font-semibold ${getStatusColour(status)}`}
         >
           {status}
         </span>

@@ -83,14 +83,14 @@ export default function Product() {
 
   return (
     <div className="mb-8 mt-4 px-4 sm:mx-auto sm:max-w-xl">
-      <div className="animate-in fade-in relative mb-4 aspect-square duration-300">
+      <div className="relative mb-4 aspect-square duration-300 animate-in fade-in">
         <img
           src={imageUrl}
           alt={name}
           className="h-full w-full rounded-md border border-border object-cover"
         />
         <div
-          className={`absolute left-2 top-2 rounded-md bg-background px-2 py-1 text-xs font-semibold ${getStatusColour(
+          className={`absolute bottom-2 right-2 rounded-md bg-background px-2 py-1 text-xs font-semibold ${getStatusColour(
             status,
           )}`}
         >

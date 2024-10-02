@@ -103,7 +103,7 @@ export function getStatusColour(status) {
     case "ACTIVE":
       return "bg-green-600";
     case "HOLD":
-      return "bg-amber-500";
+      return "bg-yellow-600";
     case "INACTIVE":
       return "bg-red-600";
     default:
@@ -116,7 +116,7 @@ export function getStockLevelColour(status) {
     case "HIGH":
       return "bg-green-600";
     case "MEDIUM":
-      return "bg-amber-500";
+      return "bg-yellow-600";
     case "LOW":
       return "bg-red-600";
     case "OOS":
