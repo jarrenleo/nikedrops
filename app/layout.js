@@ -1,4 +1,4 @@
-import { GeistMono } from "geist/font/mono";
+import { GeistSans } from "geist/font/sans";
 import QueryProvider from "./_providers/QueryProvider";
 import ThemeProvider from "./_providers/ThemeProvider";
 import ContextProvider from "./_providers/ContextProvider";
@@ -13,7 +13,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${GeistMono.className}`}>
+      <body className={`${GeistSans.className}`}>
         <QueryProvider>
           <ThemeProvider
             attribute="class"
