@@ -91,11 +91,16 @@ export function formatDateTime(dateTimeObject, country, timeZone) {
   ];
 }
 
-export function extractImageUrl(channel, publishedContent) {
-  if (channel === "SNKRS Web")
-    return publishedContent.coverCard.properties.squarishURL;
+export async function extractImageUrl(sku) {
+  const response = await fetch(
+    `https://secure-images.nike.com/is/image/DotCom/${sku.replace("-", "_")}`,
+  );
+  const imageUrl = response.url.replace(
+    "rgb:FFFFFF,q_auto,h_400",
+    "rgb:D4D4D4,q_auto,h_1080",
+  );
 
-  return publishedContent.productCard.properties.squarishURL;
+  return imageUrl;
 }
 
 export function getStatusColour(status) {

@@ -10,7 +10,7 @@ function UpcomingListItemMobile({ product }) {
       className="flex cursor-pointer items-center justify-start gap-3 px-4 py-3 transition-all duration-300 animate-in fade-in hover:bg-secondary"
     >
       <div className="relative">
-        <div className="h-14 w-14">
+        <div className="h-16 w-16">
           <img
             src={imageUrl}
             alt={name}
