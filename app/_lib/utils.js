@@ -123,7 +123,7 @@ export function getStockLevelColour(status) {
     case "MEDIUM":
       return "bg-yellow-600";
     case "LOW":
-      return "bg-red-600";
+      return "bg-orange-600";
     case "OOS":
       return "bg-red-600";
     default:
