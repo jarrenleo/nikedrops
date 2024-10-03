@@ -9,14 +9,16 @@ import {
 } from "./utils";
 
 const currencies = {
-  SG: "SGD",
-  MY: "MYR",
   JP: "JPY",
   KR: "KRW",
+  SG: "SGD",
+  MY: "MYR",
   FR: "EUR",
   GB: "GBP",
   CA: "CAD",
+  AU: "AUD",
   US: "USD",
+  MX: "MXN",
 };
 
 function formatPrice(price, country) {

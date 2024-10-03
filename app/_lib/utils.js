@@ -6,25 +6,29 @@ export function cn(...inputs) {
 }
 
 export const locales = {
-  SG: "en-SG",
-  MY: "en-MY",
   JP: "ja-JP",
   KR: "ko-KR",
+  SG: "en-SG",
+  MY: "en-MY",
   FR: "fr-FR",
   GB: "en-GB",
   CA: "en-CA",
+  AU: "en-AU",
   US: "en-US",
+  MX: "es-MX",
 };
 
 export const languages = {
-  SG: "en-GB",
-  MY: "en-GB",
   JP: "ja",
   KR: "ko",
+  SG: "en-GB",
+  MY: "en-GB",
   FR: "fr",
   GB: "en-GB",
   CA: "en-GB",
+  AU: "en-GB",
   US: "en",
+  MX: "es-419",
 };
 
 export async function fetchData(url) {
@@ -59,9 +63,10 @@ export function extractPublishedName(country, sku, publishedContent) {
 
     let startIndex = 0;
     if (country === "FR") startIndex = 21;
+    if (country === "MX") startIndex = 28;
 
     let indexToDeduct = 2;
-    if (country === "KR") indexToDeduct = 1;
+    if (country === "KR" || country === "MX") indexToDeduct = 1;
 
     const endIndex = seoTitle.indexOf(sku) - indexToDeduct;
 
