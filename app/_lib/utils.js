@@ -127,6 +127,6 @@ export function getStockLevelColour(status) {
     case "OOS":
       return "bg-red-600";
     default:
-      return "bg-transparent";
+      return "";
   }
 }

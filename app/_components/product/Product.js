@@ -3,9 +3,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { useGlobalState } from "@/app/_providers/ContextProvider";
-import { getStatusColour, getStockLevelColour } from "@/app/_lib/utils";
-import ProductLink from "@/app/_components/product/ProductLink";
+import ProductLinks from "@/app/_components/product/ProductLinks";
+import ProductDetail from "@/app/_components/product/ProductDetail";
 import Spinner from "@/app/_components/others/Spinner";
+import { getStatusColour, getStockLevelColour } from "@/app/_lib/utils";
 
 async function fetchProduct(channel, country, sku, timeZone) {
   try {
@@ -19,20 +20,6 @@ async function fetchProduct(channel, country, sku, timeZone) {
   } catch (error) {
     throw Error(error.message);
   }
-}
-
-function ProductDetail({ label, value }) {
-  return (
-    <div className="flex flex-col">
-      <span className="text-xs text-muted-foreground">{label}</span>
-      <div className="flex items-center gap-1">
-        <span className={`text-sm`}>{value}</span>
-        <div
-          className={`text-sm ${getStockLevelColour(value)} h-4 w-4 rounded-md`}
-        ></div>
-      </div>
-    </div>
-  );
 }
 
 export default function Product() {
@@ -99,7 +86,7 @@ export default function Product() {
       </div>
       <div>
         <h2 className="mb-2 text-balance font-semibold">{name}</h2>
-        <ProductLink sku={sku} productUrl={productUrl} />
+        <ProductLinks sku={sku} productUrl={productUrl} />
         <div className="mb-4 grid grid-cols-2 gap-4">
           {productDetails.map(({ label, value }) => (
             <ProductDetail key={label} label={label} value={value} />
@@ -112,7 +99,13 @@ export default function Product() {
           <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
             {sizesAndStockLevels.length
               ? sizesAndStockLevels.map(({ size, stockLevel }) => (
-                  <ProductDetail key={size} label={size} value={stockLevel} />
+                  <ProductDetail key={size} label={size} value={stockLevel}>
+                    <div
+                      className={`text-sm ${getStockLevelColour(
+                        stockLevel,
+                      )} h-4 w-4 rounded-md`}
+                    ></div>
+                  </ProductDetail>
                 ))
               : "-"}
           </div>

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-export default function ProductLink({ sku, productUrl }) {
+export default function ProductLinks({ sku, productUrl }) {
   const productLinks = [
     {
       name: "Nike",
