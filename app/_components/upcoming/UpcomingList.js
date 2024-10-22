@@ -1,10 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import { useQuery } from "@tanstack/react-query";
 import { useGlobalState } from "@/app/_providers/ContextProvider";
 import UpcomingListItem from "./UpcomingListItem";
-import Spinner from "../others/Spinner";
+
+const Spinner = dynamic(() => import("@/app/_components/others/Spinner"), {
+  ssr: false,
+});
 
 async function fetchUpcomingData(channel, country, timeZone) {
   try {

@@ -1,10 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { useGlobalState } from "@/app/_providers/ContextProvider";
-import Spinner from "@/app/_components/others/Spinner";
+
+const Spinner = dynamic(() => import("@/app/_components/others/Spinner"), {
+  ssr: false,
+});
 
 async function searchProduct(searchQuery, country) {
   try {
