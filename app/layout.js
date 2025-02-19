@@ -6,8 +6,8 @@ import Navigation from "./_components/navigation/Navigation";
 import "./globals.css";
 
 export const metadata = {
-  title: "Sneakify",
-  description: "SNKRS/Nike Calendar App",
+  title: "Nike Drops",
+  description: "Nike Drops is a sneaker release app that allows you to stay up to date with the latest Nike releases.",
 };
 
 export default function RootLayout({ children }) {
