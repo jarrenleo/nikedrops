@@ -7,7 +7,7 @@ import "./globals.css";
 
 export const metadata = {
   title: "Nike Drops",
-  description: "Nike Drops is a sneaker release app that allows you to stay up to date with the latest Nike releases.",
+  description: "Nike Drops is a sneaker release app that allows users to view upcoming and prior sneaker releases with additional product information that are usually obscured by Nike on their official webstore.",
 };
 
 export default function RootLayout({ children }) {
