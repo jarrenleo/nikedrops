@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import SearchBar from "./SearchBar";
 import ThemeToggle from "./ThemeToggle";
-import BackButton from "./BackButton";
+import CloseSearchBarButton from "./CloseSearchBarButton";
 import SearchResult from "./SearchResult";
 
 export default function Navigation() {
@@ -30,7 +30,7 @@ export default function Navigation() {
         </div>
       ) : (
         <div className="flex items-center gap-1">
-          <BackButton
+          <CloseSearchBarButton
             onClick={() => {
               setSearchQuery("");
               setIsSearchBarExpanded(false);
