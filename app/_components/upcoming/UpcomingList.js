@@ -77,7 +77,7 @@ export default function UpcomingList() {
 
   return (
     <div
-      className="scroll-container flex-1 space-y-4 overflow-y-scroll py-2 md:space-y-8 md:py-4"
+      className="flex-1 space-y-4 py-2 md:space-y-8 md:py-4"
       onScroll={handleScroll}
     >
       {Object.entries(data).map(([date, products]) => (
