@@ -1,8 +1,7 @@
 "use client";
 
-import Link from "next/link";
+import { useRouter, useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
 import { useGlobalState } from "@/app/_providers/ContextProvider";
 import ProductLinks from "@/app/_components/product/ProductLinks";
 import ProductDetail from "@/app/_components/product/ProductDetail";
@@ -26,6 +25,7 @@ async function fetchProduct(channel, country, sku, timeZone) {
 
 export default function Product() {
   const params = useParams();
+  const router = useRouter();
   const { channel, country, timeZone } = useGlobalState();
   const { isPending, error, data } = useQuery({
     queryKey: ["product", channel, country, params.sku, timeZone],
@@ -33,6 +33,11 @@ export default function Product() {
     retry: false,
     staleTime: Infinity,
   });
+
+  function handleClick() {
+    const referrer = new URL(document.referrer);
+    referrer.hostname === "nikedrops.com" ? router.back() : router.push("/");
+  }
 
   if (isPending)
     return (
@@ -72,13 +77,13 @@ export default function Product() {
 
   return (
     <>
-      <Link
-        href="/"
+      <button
+        onClick={handleClick}
         className="mx-4 inline-flex items-center font-medium text-muted-foreground transition-colors hover:text-foreground"
       >
         <ArrowLeft className="mr-1 h-4 w-4" />
         Back to Upcoming Drops
-      </Link>
+      </button>
       <div className="my-4 px-4 sm:mx-auto sm:max-w-xl">
         <div className="relative mb-4 aspect-square duration-300 animate-in fade-in">
           <img
