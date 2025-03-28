@@ -77,11 +77,11 @@ export default function UpcomingList() {
 
   return (
     <div
-      className="scroll-container h-[calc(100dvh-10.5rem)] overflow-y-scroll pt-2"
+      className="scroll-container flex-1 space-y-4 overflow-y-scroll py-2 md:space-y-8 md:py-4"
       onScroll={handleScroll}
     >
       {Object.entries(data).map(([date, products]) => (
-        <ul key={date} className="mb-4 md:mb-8">
+        <ul key={date}>
           <li className="px-4 text-sm font-semibold md:mb-2 md:text-base">
             {date}
           </li>

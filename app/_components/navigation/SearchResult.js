@@ -54,14 +54,14 @@ export default function SearchResult({
 
   if (isPending && searchQuery.length > 9)
     return (
-      <div className="absolute left-[60px] top-16 z-10 flex w-[calc(100%-120px)] justify-center rounded-md bg-muted p-4">
+      <div className="absolute top-[50px] z-10 flex w-full justify-center rounded-md bg-muted p-4">
         <Spinner size={30} stroke={3} />
       </div>
     );
 
   if (error)
     return (
-      <div className="absolute left-[60px] top-16 z-10 w-[calc(100%-120px)] rounded-md bg-muted py-8 text-center text-sm text-muted-foreground">
+      <div className="absolute top-[50px] z-10 w-full rounded-md bg-muted py-8 text-center text-sm text-muted-foreground">
         {error.message}
       </div>
     );
@@ -71,7 +71,7 @@ export default function SearchResult({
       <Link
         href={`/${data.sku}`}
         onClick={() => handleClick(data.channel)}
-        className="absolute left-[60px] top-16 z-10 flex w-[calc(100%-120px)] cursor-pointer items-center gap-2 rounded-md bg-muted p-4 transition-colors hover:bg-neutral-700"
+        className="absolute top-[50px] z-10 flex w-full cursor-pointer items-center gap-2 rounded-md bg-muted p-4 transition-colors hover:bg-neutral-700"
       >
         <div className="h-10 w-10 flex-shrink-0">
           <img

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { useGlobalState } from "@/app/_providers/ContextProvider";
@@ -7,6 +8,7 @@ import ProductLinks from "@/app/_components/product/ProductLinks";
 import ProductDetail from "@/app/_components/product/ProductDetail";
 import Spinner from "@/app/_components/others/Spinner";
 import { getStatusColour, getStockLevelColour } from "@/app/_lib/utils";
+import { ArrowLeft } from "lucide-react";
 
 async function fetchProduct(channel, country, sku, timeZone) {
   try {
@@ -34,13 +36,13 @@ export default function Product() {
 
   if (isPending)
     return (
-      <div className="mt-8 flex items-center justify-center">
+      <div className="my-8 flex items-center justify-center">
         <Spinner size={60} stroke={6} />
       </div>
     );
   if (error)
     return (
-      <div className="mt-4 text-balance text-center font-semibold">
+      <div className="my-4 text-balance text-center font-semibold">
         {error.message}
       </div>
     );
@@ -69,48 +71,57 @@ export default function Product() {
   ];
 
   return (
-    <div className="mb-8 mt-4 px-4 sm:mx-auto sm:max-w-xl">
-      <div className="relative mb-4 aspect-square duration-300 animate-in fade-in">
-        <img
-          src={imageUrl}
-          alt={name}
-          className="h-full w-full rounded-md border border-border object-cover"
-        />
-        <div
-          className={`absolute bottom-2 right-2 rounded-md bg-background px-2 py-1 text-xs font-semibold ${getStatusColour(
-            status,
-          )}`}
-        >
-          {status}
-        </div>
-      </div>
-      <div>
-        <h2 className="mb-2 text-balance font-semibold">{name}</h2>
-        <ProductLinks sku={sku} productUrl={productUrl} />
-        <div className="mb-4 grid grid-cols-2 gap-4">
-          {productDetails.map(({ label, value }) => (
-            <ProductDetail key={label} label={label} value={value} />
-          ))}
+    <>
+      <Link
+        href="/"
+        className="mx-4 inline-flex items-center font-medium text-muted-foreground transition-colors hover:text-foreground"
+      >
+        <ArrowLeft className="mr-1 h-4 w-4" />
+        Back to Upcoming Drops
+      </Link>
+      <div className="my-4 px-4 sm:mx-auto sm:max-w-xl">
+        <div className="relative mb-4 aspect-square duration-300 animate-in fade-in">
+          <img
+            src={imageUrl}
+            alt={name}
+            className="h-full w-full rounded-md border border-border object-cover"
+          />
+          <div
+            className={`absolute bottom-2 right-2 rounded-md bg-background px-2 py-1 text-xs font-semibold ${getStatusColour(
+              status,
+            )}`}
+          >
+            {status}
+          </div>
         </div>
         <div>
-          <span className="text-xs text-muted-foreground">
-            Sizes & Stock Levels
-          </span>
-          <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
-            {sizesAndStockLevels.length
-              ? sizesAndStockLevels.map(({ size, stockLevel }) => (
-                  <ProductDetail key={size} label={size} value={stockLevel}>
-                    <div
-                      className={`text-sm ${getStockLevelColour(
-                        stockLevel,
-                      )} h-4 w-4 rounded-md`}
-                    ></div>
-                  </ProductDetail>
-                ))
-              : "-"}
+          <h2 className="mb-2 text-balance font-semibold">{name}</h2>
+          <ProductLinks sku={sku} productUrl={productUrl} />
+          <div className="mb-4 grid grid-cols-2 gap-4">
+            {productDetails.map(({ label, value }) => (
+              <ProductDetail key={label} label={label} value={value} />
+            ))}
+          </div>
+          <div>
+            <span className="text-xs text-muted-foreground">
+              Sizes & Stock Levels
+            </span>
+            <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
+              {sizesAndStockLevels.length
+                ? sizesAndStockLevels.map(({ size, stockLevel }) => (
+                    <ProductDetail key={size} label={size} value={stockLevel}>
+                      <div
+                        className={`text-sm ${getStockLevelColour(
+                          stockLevel,
+                        )} h-4 w-4 rounded-md`}
+                      ></div>
+                    </ProductDetail>
+                  ))
+                : "-"}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

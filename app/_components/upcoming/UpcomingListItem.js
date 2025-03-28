@@ -18,7 +18,7 @@ function UpcomingListItemMobile({ product }) {
           />
         </div>
         <div
-          className={`absolute bottom-0 right-0 h-4 w-4 rounded-full border-2 border-border ${getStatusColour(status)}`}
+          className={`absolute bottom-0.5 right-0.5 h-4 w-4 rounded-full border-2 border-border ${getStatusColour(status)}`}
         ></div>
       </div>
       <div className="flex flex-col gap-1 text-sm">

@@ -4,7 +4,7 @@ export async function generateMetadata({ params }) {
   const { sku } = await params;
 
   return {
-    title: `Sneakify | ${sku}`,
+    title: `Nike Drops | ${sku}`,
   };
 }
 
