@@ -29,13 +29,15 @@ export default function ProductLinks({ sku, productUrl }) {
     <div className="mb-4 flex items-center gap-2">
       {productLinks.map(({ name, image, url }) => (
         <Link key={name} href={url} target="_blank">
-          <Image
-            src={image}
-            alt={`${name} Logo`}
-            width={32}
-            height={32}
-            className="rounded-full border border-border transition-all hover:border-0 hover:ring-2 hover:ring-ring"
-          />
+          <div className="overflow-hidden rounded-md">
+            <Image
+              src={image}
+              alt={`${name} Logo`}
+              width={32}
+              height={32}
+              className="transition-transform duration-300 hover:scale-110"
+            />
+          </div>
         </Link>
       ))}
     </div>

@@ -12,13 +12,13 @@ export default function Navigation() {
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
-    <nav className="px-4 py-2">
+    <nav className="sticky top-0 z-50 bg-background/90 px-4 py-3 backdrop-blur-sm">
       {!isSearchBarExpanded ? (
         <div className="flex items-center justify-between">
           <Link href="/" className="bg-muted text-xl font-bold">
             NIKE DROPS
           </Link>
-          <div className="flex gap-1">
+          <div className="flex gap-0.5">
             <SearchBar
               isSearchBarExpanded={isSearchBarExpanded}
               setIsSearchBarExpanded={setIsSearchBarExpanded}
@@ -29,7 +29,7 @@ export default function Navigation() {
           </div>
         </div>
       ) : (
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-0.5">
           <CloseSearchBarButton
             onClick={() => {
               setSearchQuery("");

@@ -7,7 +7,7 @@ export default function CloseSearchBarButton({ onClick }) {
       onClick={onClick}
       aria-label="Back button"
     >
-      <ArrowLeft />
+      <ArrowLeft width={20} height={20} />
     </button>
   );
 }

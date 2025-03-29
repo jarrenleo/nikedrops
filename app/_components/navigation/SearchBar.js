@@ -16,13 +16,13 @@ export default function SearchBar({
           onClick={() => setIsSearchBarExpanded(true)}
           aria-label="Search button"
         >
-          <Search />
+          <Search width={20} height={20} />
         </button>
       ) : (
         <input
           type="text"
           placeholder="Search SKU"
-          className="h-[40px] w-full rounded-md bg-secondary px-3 py-2 outline-none transition-colors placeholder:text-sm placeholder:text-muted-foreground"
+          className="h-[36px] w-full rounded-md bg-secondary px-4 py-3 outline-none transition-colors placeholder:text-sm placeholder:text-muted-foreground"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />

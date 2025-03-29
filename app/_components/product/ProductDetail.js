@@ -1,9 +1,9 @@
 export default function ProductDetail({ label, value, children }) {
   return (
-    <div className="flex flex-col">
-      <span className="text-xs text-muted-foreground">{label}</span>
+    <div className="flex cursor-default flex-col">
+      <span className="text-muted-foreground">{label}</span>
       <div className="flex items-center gap-1">
-        <span className={`text-sm`}>{value}</span>
+        <span>{value}</span>
         {children}
       </div>
     </div>

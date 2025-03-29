@@ -12,7 +12,11 @@ export default function ThemeToggle() {
       className="rounded-md p-2 transition-colors hover:bg-secondary"
       aria-label="Theme toggle button"
     >
-      {resolvedTheme === "dark" ? <MoonStar /> : <Sun />}
+      {resolvedTheme === "dark" ? (
+        <MoonStar width={20} height={20} />
+      ) : (
+        <Sun width={20} height={20} />
+      )}
     </button>
   );
 }

@@ -111,11 +111,13 @@ export async function extractImageUrl(sku) {
 export function getStatusColour(status) {
   switch (status) {
     case "ACTIVE":
-      return "bg-green-600";
+      return "bg-green";
     case "HOLD":
-      return "bg-yellow-600";
+      return "bg-yellow";
     case "INACTIVE":
-      return "bg-red-600";
+      return "bg-red";
+    case "CANCEL":
+      return "bg-red";
     default:
       return "bg-border";
   }
@@ -124,13 +126,13 @@ export function getStatusColour(status) {
 export function getStockLevelColour(status) {
   switch (status) {
     case "HIGH":
-      return "bg-green-600";
+      return "bg-green";
     case "MEDIUM":
-      return "bg-yellow-600";
+      return "bg-yellow";
     case "LOW":
-      return "bg-orange-600";
+      return "bg-red";
     case "OOS":
-      return "bg-red-600";
+      return "bg-red";
     default:
       return "";
   }

@@ -58,14 +58,12 @@ export default function UpcomingList() {
   const isMobile = viewportWidth < 768;
 
   return (
-    <div className="flex-1 space-y-4 py-2 md:space-y-8 md:py-4">
+    <div className="flex-1 space-y-3 py-3 md:space-y-8 md:py-6">
       {Object.entries(data).map(([date, products]) => (
         <ul key={date}>
-          <li className="px-4 text-sm font-semibold md:mb-2 md:text-base">
-            {date}
-          </li>
+          <li className="px-4 pb-3 font-semibold md:pb-6">{date}</li>
           <li
-            className={`${!isMobile && "grid grid-cols-3 gap-4 px-4 lg:grid-cols-4"}`}
+            className={`${!isMobile && "grid grid-cols-3 gap-6 px-4 lg:grid-cols-4"}`}
           >
             {products.map((product) => (
               <UpcomingListItem

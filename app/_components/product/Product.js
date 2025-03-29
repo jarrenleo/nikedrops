@@ -77,21 +77,23 @@ export default function Product() {
       <BackToUpcomingDropsButton />
       <div className="my-4 px-4 sm:mx-auto sm:max-w-xl">
         <div className="relative mb-4 aspect-square duration-300 animate-in fade-in">
-          <img
-            src={imageUrl}
-            alt={name}
-            className="h-full w-full rounded-md border border-border object-cover"
-          />
-          <div
-            className={`absolute bottom-2 right-2 rounded-md bg-background px-2 py-1 text-xs font-semibold ${getStatusColour(
-              status,
-            )}`}
-          >
-            {status}
+          <div className="group relative overflow-hidden rounded-md">
+            <img
+              src={imageUrl}
+              alt={name}
+              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+            />
+            <div
+              className={`absolute bottom-2 right-2 cursor-default rounded-md bg-background px-2 py-1 text-xs font-semibold text-white ${getStatusColour(
+                status,
+              )}`}
+            >
+              {status}
+            </div>
           </div>
         </div>
-        <div>
-          <h2 className="mb-2 text-balance font-semibold">{name}</h2>
+        <div className="text-sm">
+          <h2 className="mb-2 cursor-default text-lg font-semibold">{name}</h2>
           <ProductLinks sku={sku} productUrl={productUrl} />
           <div className="mb-4 grid grid-cols-2 gap-4">
             {productDetails.map(({ label, value }) => (
@@ -99,15 +101,13 @@ export default function Product() {
             ))}
           </div>
           <div>
-            <span className="text-xs text-muted-foreground">
-              Sizes & Stock Levels
-            </span>
+            <span className="text-muted-foreground">Sizes & Stock Levels</span>
             <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
               {sizesAndStockLevels.length
                 ? sizesAndStockLevels.map(({ size, stockLevel }) => (
                     <ProductDetail key={size} label={size} value={stockLevel}>
                       <div
-                        className={`text-sm ${getStockLevelColour(
+                        className={`${getStockLevelColour(
                           stockLevel,
                         )} h-4 w-4 rounded-md`}
                       ></div>
