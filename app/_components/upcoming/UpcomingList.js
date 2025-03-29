@@ -24,11 +24,6 @@ async function fetchUpcomingData(channel, country, timeZone) {
   }
 }
 
-function setScrollPosition(scrollPosition) {
-  const scrollContainer = document.querySelector(".scroll-container");
-  if (scrollContainer) scrollContainer.scrollTop = +scrollPosition;
-}
-
 export default function UpcomingList() {
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
   const { channel, country, timeZone } = useGlobalState();
@@ -47,19 +42,6 @@ export default function UpcomingList() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => {
-    setScrollPosition(0);
-  }, [country]);
-
-  useEffect(() => {
-    const scrollPosition = sessionStorage.getItem(`scrollPosition_${channel}`);
-    if (scrollPosition) setScrollPosition(scrollPosition);
-  }, [channel]);
-
-  function handleScroll(e) {
-    sessionStorage.setItem(`scrollPosition_${channel}`, e.target.scrollTop);
-  }
-
   if (isPending)
     return (
       <div className="mt-8 flex items-center justify-center">
@@ -76,10 +58,7 @@ export default function UpcomingList() {
   const isMobile = viewportWidth < 768;
 
   return (
-    <div
-      className="flex-1 space-y-4 py-2 md:space-y-8 md:py-4"
-      onScroll={handleScroll}
-    >
+    <div className="flex-1 space-y-4 py-2 md:space-y-8 md:py-4">
       {Object.entries(data).map(([date, products]) => (
         <ul key={date}>
           <li className="px-4 text-sm font-semibold md:mb-2 md:text-base">

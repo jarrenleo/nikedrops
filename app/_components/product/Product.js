@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useGlobalState } from "@/app/_providers/ContextProvider";
 import ProductLinks from "@/app/_components/product/ProductLinks";
 import ProductDetail from "@/app/_components/product/ProductDetail";
-import BackToUpcomingDropsButton from "@/app/_components/others/BackToUpcomingDropsButton";
+import BackToUpcomingDropsButton from "@/app/_components/product/BackToUpcomingDropsButton";
 import Spinner from "@/app/_components/others/Spinner";
 import { getStatusColour, getStockLevelColour } from "@/app/_lib/utils";
 
