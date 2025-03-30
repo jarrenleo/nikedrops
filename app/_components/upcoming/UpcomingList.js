@@ -58,7 +58,7 @@ export default function UpcomingList() {
   const isMobile = viewportWidth < 768;
 
   return (
-    <div className="flex-1 space-y-3 py-3 md:space-y-8 md:py-6">
+    <div className="space-y-3 py-6 md:space-y-6 md:py-6">
       {Object.entries(data).map(([date, products]) => (
         <ul key={date}>
           <li className="px-4 pb-3 font-semibold md:pb-6">{date}</li>
