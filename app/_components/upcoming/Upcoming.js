@@ -4,14 +4,12 @@ import CountrySelect from "./CountrySelect";
 
 export default function Upcoming() {
   return (
-    <div className="flex flex-1 flex-col">
-      <div className="px-4">
-        <div className="flex items-center justify-between border-b border-secondary">
-          <TabSelect />
-          <CountrySelect />
-        </div>
+    <>
+      <div className="flex items-center justify-between border-b border-secondary">
+        <TabSelect />
+        <CountrySelect />
       </div>
       <UpcomingList />
-    </div>
+    </>
   );
 }

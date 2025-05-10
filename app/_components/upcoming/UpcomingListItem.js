@@ -8,7 +8,7 @@ function UpcomingListItemMobile({ product }) {
   return (
     <Link
       href={`/${sku}`}
-      className="group flex cursor-pointer items-center justify-start gap-3 px-4 py-3 hover:bg-secondary"
+      className="group flex cursor-pointer items-center justify-start gap-3 py-3 hover:bg-secondary"
     >
       <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-md">
         <motion.img

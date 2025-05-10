@@ -3,6 +3,7 @@ import QueryProvider from "./_providers/QueryProvider";
 import ThemeProvider from "./_providers/ThemeProvider";
 import ContextProvider from "./_providers/ContextProvider";
 import Navigation from "./_components/navigation/Navigation";
+import Footer from "./_components/footer/Footer";
 import "./globals.css";
 
 export const metadata = {
@@ -26,9 +27,10 @@ export default function RootLayout({ children }) {
             disableTransitionOnChange
           >
             <ContextProvider>
-              <div className="mx-auto max-w-7xl">
+              <div className="mx-auto flex min-h-screen max-w-7xl flex-1 flex-col px-4">
                 <Navigation />
-                <main>{children}</main>
+                <main className="flex flex-1 flex-col">{children}</main>
+                <Footer />
               </div>
             </ContextProvider>
           </ThemeProvider>

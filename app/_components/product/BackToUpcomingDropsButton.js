@@ -13,7 +13,7 @@ export default function BackToUpcomingDropsButton() {
   return (
     <button
       onClick={handleClick}
-      className="mx-4 inline-flex items-center font-medium text-muted-foreground transition-colors hover:text-foreground"
+      className="inline-flex items-center font-medium text-muted-foreground transition-colors hover:text-foreground"
     >
       <ArrowLeft className="mr-1 h-4 w-4" />
       Back to Upcoming Drops
