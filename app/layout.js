@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
             disableTransitionOnChange
           >
             <ContextProvider>
-              <div className="mx-auto flex min-h-screen max-w-7xl flex-1 flex-col px-4">
+              <div className="mx-auto flex min-h-screen max-w-7xl flex-1 flex-col">
                 <Navigation />
                 <main className="flex flex-1 flex-col">{children}</main>
                 <Footer />

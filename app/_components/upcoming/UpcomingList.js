@@ -57,7 +57,7 @@ export default function UpcomingList() {
     <div className="space-y-3 py-6 md:space-y-6">
       {Object.entries(data).map(([date, products]) => (
         <ul key={date}>
-          <li className="pb-3 font-semibold md:pb-6">{date}</li>
+          <li className="px-4 pb-3 font-semibold md:pb-6">{date}</li>
           <li
             className={`${!isMobile && "grid grid-cols-3 gap-6 lg:grid-cols-4"}`}
           >

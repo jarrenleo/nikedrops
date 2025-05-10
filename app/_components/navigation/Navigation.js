@@ -12,7 +12,7 @@ export default function Navigation() {
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
-    <nav className="sticky top-0 z-50 bg-background/90 py-3 backdrop-blur-sm">
+    <nav className="sticky top-0 z-50 bg-background/90 px-4 py-2 backdrop-blur-sm">
       {!isSearchBarExpanded ? (
         <div className="flex items-center justify-between">
           <Link href="/" className="bg-muted text-xl font-bold">

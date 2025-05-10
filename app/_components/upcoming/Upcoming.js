@@ -5,7 +5,7 @@ import CountrySelect from "./CountrySelect";
 export default function Upcoming() {
   return (
     <>
-      <div className="flex items-center justify-between border-b border-secondary">
+      <div className="mx-4 flex items-center justify-between border-b border-secondary">
         <TabSelect />
         <CountrySelect />
       </div>

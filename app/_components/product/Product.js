@@ -76,7 +76,7 @@ export default function Product() {
   return (
     <>
       <BackToUpcomingDropsButton />
-      <div className="pb-6 sm:mx-auto sm:max-w-xl">
+      <div className="px-4 pb-6 sm:mx-auto sm:max-w-xl">
         <div className="relative mb-4 aspect-square duration-300 animate-in fade-in">
           <div className="group relative overflow-hidden rounded-md">
             <motion.img
