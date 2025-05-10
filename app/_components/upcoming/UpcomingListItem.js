@@ -39,7 +39,7 @@ function UpcomingCardItem({ product }) {
   const { status, name, sku, price, releaseTime, imageUrl } = product;
 
   return (
-    <Link href={`/${sku}`} className="group flex flex-col rounded-md px-4">
+    <Link href={`/${sku}`} className="group flex flex-col rounded-md">
       <div className="relative mb-4 overflow-hidden rounded-md">
         <motion.img
           src={imageUrl}

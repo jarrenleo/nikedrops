@@ -59,7 +59,7 @@ export default function UpcomingList() {
         <ul key={date}>
           <li className="px-4 pb-3 font-semibold md:pb-6">{date}</li>
           <li
-            className={`${!isMobile && "grid grid-cols-3 gap-6 lg:grid-cols-4"}`}
+            className={`${!isMobile && "grid grid-cols-3 gap-4 px-4 lg:grid-cols-4"}`}
           >
             {products.map((product) => (
               <UpcomingListItem
