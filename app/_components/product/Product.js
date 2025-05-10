@@ -76,13 +76,13 @@ export default function Product() {
   return (
     <>
       <BackToUpcomingDropsButton />
-      <div className="my-4 sm:mx-auto sm:max-w-xl">
+      <div className="pb-6 sm:mx-auto sm:max-w-xl">
         <div className="relative mb-4 aspect-square duration-300 animate-in fade-in">
           <div className="group relative overflow-hidden rounded-md">
             <motion.img
               src={imageUrl}
               alt={name}
-              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 group-hover:ease-out"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
             />
