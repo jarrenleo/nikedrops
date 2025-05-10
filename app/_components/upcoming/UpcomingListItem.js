@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getStatusColour } from "@/app/_lib/utils";
+import { motion } from "motion/react";
 
 function UpcomingListItemMobile({ product }) {
   const { status, name, sku, price, releaseTime, imageUrl } = product;
@@ -7,13 +8,15 @@ function UpcomingListItemMobile({ product }) {
   return (
     <Link
       href={`/${sku}`}
-      className="group flex cursor-pointer items-center justify-start gap-3 px-4 py-3 transition-all duration-300 animate-in fade-in hover:bg-secondary"
+      className="group flex cursor-pointer items-center justify-start gap-3 px-4 py-3 hover:bg-secondary"
     >
       <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-md">
-        <img
+        <motion.img
           src={imageUrl}
           alt={name}
-          className="h-20 w-20 object-cover transition-transform duration-300 group-hover:scale-110"
+          className="h-20 w-20 object-cover transition-transform duration-300 group-hover:scale-105 group-hover:ease-out"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
         />
       </div>
       <div className="flex flex-col gap-1.5 text-sm">
@@ -36,17 +39,15 @@ function UpcomingCardItem({ product }) {
   const { status, name, sku, price, releaseTime, imageUrl } = product;
 
   return (
-    <Link
-      href={`/${sku}`}
-      className="group flex flex-col rounded-md transition-all duration-300 animate-in fade-in"
-    >
+    <Link href={`/${sku}`} className="group flex flex-col rounded-md">
       <div className="relative mb-4 overflow-hidden rounded-md">
-        <img
+        <motion.img
           src={imageUrl}
           alt={name}
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 group-hover:ease-out"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
         />
-
         <span
           className={`absolute bottom-2 right-2 rounded-md px-2 py-1 text-xs font-semibold text-white ${getStatusColour(status)}`}
         >

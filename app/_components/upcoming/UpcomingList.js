@@ -1,14 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import dynamic from "next/dynamic";
 import { useQuery } from "@tanstack/react-query";
 import { useGlobalState } from "@/app/_providers/ContextProvider";
 import UpcomingListItem from "./UpcomingListItem";
-
-const Spinner = dynamic(() => import("@/app/_components/others/Spinner"), {
-  ssr: false,
-});
+import Loader from "../ui/Loader";
 
 async function fetchUpcomingData(channel, country, timeZone) {
   try {
@@ -44,13 +40,13 @@ export default function UpcomingList() {
 
   if (isPending)
     return (
-      <div className="mt-8 flex items-center justify-center">
-        <Spinner size={60} stroke={6} />
+      <div className="fixed inset-0 flex items-center justify-center">
+        <Loader />
       </div>
     );
   if (error)
     return (
-      <div className="mt-4 text-balance text-center font-semibold">
+      <div className="mt-8 text-balance text-center font-semibold">
         {error.message}
       </div>
     );

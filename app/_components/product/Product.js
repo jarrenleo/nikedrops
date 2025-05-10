@@ -6,8 +6,9 @@ import { useGlobalState } from "@/app/_providers/ContextProvider";
 import ProductLinks from "@/app/_components/product/ProductLinks";
 import ProductDetail from "@/app/_components/product/ProductDetail";
 import BackToUpcomingDropsButton from "@/app/_components/product/BackToUpcomingDropsButton";
-import Spinner from "@/app/_components/others/Spinner";
 import { getStatusColour, getStockLevelColour } from "@/app/_lib/utils";
+import Loader from "../ui/Loader";
+import { motion } from "motion/react";
 
 async function fetchProduct(channel, country, sku, timeZone) {
   try {
@@ -35,15 +36,15 @@ export default function Product() {
 
   if (isPending)
     return (
-      <div className="my-8 flex items-center justify-center">
-        <Spinner size={60} stroke={6} />
+      <div className="fixed inset-0 flex items-center justify-center">
+        <Loader />
       </div>
     );
   if (error)
     return (
       <>
         <BackToUpcomingDropsButton />
-        <div className="my-4 text-balance text-center font-semibold">
+        <div className="my-8 text-balance text-center font-semibold">
           {error.message}
         </div>
       </>
@@ -78,10 +79,12 @@ export default function Product() {
       <div className="my-4 px-4 sm:mx-auto sm:max-w-xl">
         <div className="relative mb-4 aspect-square duration-300 animate-in fade-in">
           <div className="group relative overflow-hidden rounded-md">
-            <img
+            <motion.img
               src={imageUrl}
               alt={name}
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
             />
             <div
               className={`absolute bottom-2 right-2 cursor-default rounded-md bg-background px-2 py-1 text-xs font-semibold text-white ${getStatusColour(

@@ -7,7 +7,11 @@ import "./globals.css";
 
 export const metadata = {
   title: "Nike Drops",
-  description: "Nike Drops is a sneaker release app that allows users to view upcoming and prior sneaker releases with additional product information that are usually obscured by Nike on their official webstore.",
+  description:
+    "Nike Drops is a sneaker release app that allows users to view upcoming and prior sneaker releases with additional product information that are usually obscured by Nike on their official webstore.",
+  openGraph: {
+    images: ["./icon.png"],
+  },
 };
 
 export default function RootLayout({ children }) {
@@ -22,10 +26,10 @@ export default function RootLayout({ children }) {
             disableTransitionOnChange
           >
             <ContextProvider>
-              <main className="mx-auto max-w-7xl">
+              <div className="mx-auto max-w-7xl">
                 <Navigation />
-                {children}
-              </main>
+                <main>{children}</main>
+              </div>
             </ContextProvider>
           </ThemeProvider>
         </QueryProvider>

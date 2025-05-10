@@ -1,7 +1,7 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { MoonStar, Sun } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 
 export default function ThemeToggle() {
   const { setTheme, resolvedTheme } = useTheme();
@@ -13,7 +13,7 @@ export default function ThemeToggle() {
       aria-label="Theme toggle button"
     >
       {resolvedTheme === "dark" ? (
-        <MoonStar width={20} height={20} />
+        <Moon width={20} height={20} />
       ) : (
         <Sun width={20} height={20} />
       )}

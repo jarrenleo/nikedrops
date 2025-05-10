@@ -77,3 +77,50 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .loader {
+    --uib-speed: 2.5s;
+    --uib-bg-opacity: 0;
+    transform-origin: center;
+    animation: rotate var(--uib-speed) linear infinite;
+    will-change: transform;
+    overflow: visible;
+  }
+
+  .car {
+    fill: none;
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+    animation: stretch calc(var(--uib-speed) * 0.75) ease-in-out infinite;
+    will-change: stroke-dasharray, stroke-dashoffset;
+    transition: stroke 0.5s ease;
+  }
+
+  .track {
+    fill: none;
+    opacity: var(--uib-bg-opacity);
+    transition: stroke 0.5s ease;
+  }
+
+  @keyframes rotate {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes stretch {
+    0% {
+      stroke-dasharray: 0, 150;
+      stroke-dashoffset: 0;
+    }
+    50% {
+      stroke-dasharray: 75, 150;
+      stroke-dashoffset: -25;
+    }
+    100% {
+      stroke-dashoffset: -100;
+    }
+  }
+}

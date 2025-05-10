@@ -1,14 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { useGlobalState } from "@/app/_providers/ContextProvider";
-
-const Spinner = dynamic(() => import("@/app/_components/others/Spinner"), {
-  ssr: false,
-});
+import Loader from "../ui/Loader";
 
 async function searchProduct(searchQuery, country) {
   try {
@@ -55,7 +51,7 @@ export default function SearchResult({
   if (isPending && searchQuery.length > 9)
     return (
       <div className="absolute top-[48px] z-10 flex w-full justify-center rounded-md bg-muted px-4 py-3">
-        <Spinner size={30} stroke={3} />
+        <Loader height={30} width={30} />
       </div>
     );
 
