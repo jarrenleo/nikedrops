@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from "@/app/_components/ui/Select";
 
-const countries = ["JP", "KR", "SG", "MY", "FR", "GB", "CA", "AU", "US", "MX"];
+const countries = ["AU", "JP", "KR", "SG", "MY", "FR", "GB", "CA", "US", "MX"];
 
 export default function CountrySelect() {
   const { country, setCountry } = useGlobalState();

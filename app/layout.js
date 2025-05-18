@@ -1,4 +1,6 @@
 import { GeistSans } from "geist/font/sans";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import QueryProvider from "./_providers/QueryProvider";
 import ThemeProvider from "./_providers/ThemeProvider";
 import ContextProvider from "./_providers/ContextProvider";
@@ -35,6 +37,8 @@ export default function RootLayout({ children }) {
             </ContextProvider>
           </ThemeProvider>
         </QueryProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
