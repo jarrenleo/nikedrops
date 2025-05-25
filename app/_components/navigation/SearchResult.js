@@ -69,13 +69,13 @@ export default function SearchResult({
         onClick={() => handleClick(data.channel)}
         className="absolute top-10 z-10 flex w-full cursor-pointer items-center gap-2 rounded-md bg-muted px-4 py-3"
       >
-        <div className="h-10 w-10 flex-shrink-0">
-          <img
-            src={data.imageUrl}
-            alt={data.name}
-            className="h-full w-full rounded-md border border-border object-cover"
-          />
-        </div>
+        <img
+          src={data.imageUrl}
+          alt={data.name}
+          height={40}
+          width={40}
+          className="rounded-md border border-border object-cover"
+        />
         <div>
           <span className="line-clamp-1 text-sm font-semibold">
             {data.name}
