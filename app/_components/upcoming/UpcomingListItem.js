@@ -14,7 +14,9 @@ function UpcomingListItemMobile({ product }) {
         <motion.img
           src={imageUrl}
           alt={name}
-          className="h-20 w-20 object-cover transition-transform duration-300 group-hover:scale-105 group-hover:ease-out"
+          height={80}
+          width={80}
+          className="object-cover transition-transform duration-300 group-hover:scale-[1.025] group-hover:ease-out"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         />
@@ -44,7 +46,9 @@ function UpcomingCardItem({ product }) {
         <motion.img
           src={imageUrl}
           alt={name}
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 group-hover:ease-out"
+          height={720}
+          width={720}
+          className="object-cover transition-transform duration-300 group-hover:scale-[1.025] group-hover:ease-out"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         />

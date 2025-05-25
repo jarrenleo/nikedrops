@@ -82,7 +82,9 @@ export default function Product() {
             <motion.img
               src={imageUrl}
               alt={name}
-              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 group-hover:ease-out"
+              height={960}
+              width={960}
+              className="object-cover transition-transform duration-300 group-hover:scale-[1.025] group-hover:ease-out"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
             />
