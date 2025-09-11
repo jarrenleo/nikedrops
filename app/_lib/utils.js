@@ -96,16 +96,13 @@ export function formatDateTime(dateTimeObject, country, timeZone) {
   ];
 }
 
-export async function extractImageUrl(sku) {
-  const response = await fetch(
-    `https://secure-images.nike.com/is/image/DotCom/${sku.replace("-", "_")}`,
+export async function extractImageUrl(nodes, sku) {
+  const imageNode = nodes.find((node) =>
+    node.properties.internalName?.includes(sku),
   );
-  const imageUrl = response.url.replace(
-    "rgb:FFFFFF,q_auto,h_400",
-    "rgb:D4D4D4,q_auto,h_960",
-  );
+  if (!imageNode) return nodes[0].nodes[0].properties.squarishURL;
 
-  return imageUrl;
+  return imageNode.properties.squarishURL;
 }
 
 export function getStatusColour(status) {

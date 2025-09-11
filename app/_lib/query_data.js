@@ -26,7 +26,10 @@ export async function getQueryData(channel, sku, country) {
         extractPublishedName(country, sku, objects[0].publishedContent) ||
         productInfo.productContent.fullTitle;
 
-    const imageUrl = await extractImageUrl(sku);
+    const imageUrl = await extractImageUrl(
+      objects[0].publishedContent.nodes,
+      sku,
+    );
 
     return {
       name,

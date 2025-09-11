@@ -125,7 +125,10 @@ export async function getProductData(channel, sku, country, timeZone) {
       country,
       objects[0].publishedContent.properties.seo.slug,
     );
-    const imageUrl = await extractImageUrl(sku);
+    const imageUrl = await extractImageUrl(
+      objects[0].publishedContent.nodes,
+      sku,
+    );
 
     return {
       status,
