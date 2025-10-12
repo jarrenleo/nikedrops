@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { useGlobalState } from "@/app/_providers/ContextProvider";
@@ -26,13 +27,29 @@ async function fetchProduct(channel, country, sku, timeZone) {
 
 export default function Product() {
   const params = useParams();
-  const { channel, country, timeZone } = useGlobalState();
+  const { channel, timeZone, setCountry } = useGlobalState();
   const { isPending, error, data } = useQuery({
-    queryKey: ["product", channel, country, params.sku, timeZone],
-    queryFn: () => fetchProduct(channel, country, params.sku, timeZone),
+    queryKey: [
+      "product",
+      channel,
+      params.country.toUpperCase(),
+      params.sku.toUpperCase(),
+      timeZone,
+    ],
+    queryFn: () =>
+      fetchProduct(
+        channel,
+        params.country.toUpperCase(),
+        params.sku.toUpperCase(),
+        timeZone,
+      ),
     retry: false,
     staleTime: Infinity,
   });
+
+  useEffect(() => {
+    setCountry(params.country.toUpperCase());
+  }, []);
 
   if (isPending)
     return (

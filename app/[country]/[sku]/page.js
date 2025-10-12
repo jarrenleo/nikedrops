@@ -1,10 +1,10 @@
 import Product from "@/app/_components/product/Product";
 
 export async function generateMetadata({ params }) {
-  const { _, sku } = await params;
+  const { country, sku } = await params;
 
   return {
-    title: `Nike Drops | ${sku}`,
+    title: `Nike Drops ${country.toUpperCase()} | ${sku.toUpperCase()}`,
   };
 }
 
