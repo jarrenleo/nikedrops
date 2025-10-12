@@ -2,12 +2,12 @@ import Link from "next/link";
 import { getStatusColour } from "@/app/_lib/utils";
 import { motion } from "motion/react";
 
-function UpcomingListItemMobile({ product }) {
+function UpcomingListItemMobile({ product, country }) {
   const { status, name, sku, price, releaseTime, imageUrl } = product;
 
   return (
     <Link
-      href={`/${sku}`}
+      href={`/${country}/${sku}`}
       className="group flex cursor-pointer items-center justify-start gap-3 px-4 py-3 hover:bg-secondary"
     >
       <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-md">
@@ -37,11 +37,14 @@ function UpcomingListItemMobile({ product }) {
   );
 }
 
-function UpcomingCardItem({ product }) {
+function UpcomingCardItem({ product, country }) {
   const { status, name, sku, price, releaseTime, imageUrl } = product;
 
   return (
-    <Link href={`/${sku}`} className="group flex flex-col rounded-md">
+    <Link
+      href={`/${country}/${sku}`}
+      className="group flex flex-col rounded-md"
+    >
       <div className="relative mb-4 overflow-hidden rounded-md">
         <motion.img
           src={imageUrl}
@@ -69,7 +72,8 @@ function UpcomingCardItem({ product }) {
   );
 }
 
-export default function UpcomingListItem({ product, isMobile }) {
-  if (isMobile) return <UpcomingListItemMobile product={product} />;
-  return <UpcomingCardItem product={product} />;
+export default function UpcomingListItem({ product, country, isMobile }) {
+  if (isMobile)
+    return <UpcomingListItemMobile product={product} country={country} />;
+  return <UpcomingCardItem product={product} country={country} />;
 }

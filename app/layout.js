@@ -11,7 +11,7 @@ import "./globals.css";
 export const metadata = {
   title: "Nike Drops",
   description:
-    "Nike Drops is a sneaker release app that allows users to view upcoming and prior sneaker releases with additional product information that are usually obscured by Nike on their official webstore.",
+    "Nike Drops is a Nike product explorer app, allowing users to view all upcoming and prior Nike releases with additional product information that are usually obscured by Nike on their official webstore.",
   openGraph: {
     images: ["./icon.png"],
   },

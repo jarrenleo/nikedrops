@@ -1,5 +1,11 @@
-import Upcoming from "./_components/upcoming/Upcoming";
+"use client";
+
+import { redirect } from "next/navigation";
+import { useGlobalState } from "./_providers/ContextProvider";
 
 export default function Page() {
-  return <Upcoming />;
+  const { country } = useGlobalState();
+
+  if (country) return redirect(`/${country}`);
+  return redirect(`/SG`);
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useGlobalState } from "@/app/_providers/ContextProvider";
 import {
   Select,
@@ -12,10 +13,16 @@ import {
 const countries = ["AU", "JP", "KR", "SG", "MY", "FR", "GB", "CA", "US", "MX"];
 
 export default function CountrySelect() {
+  const router = useRouter();
   const { country, setCountry } = useGlobalState();
 
+  function handleChange(country) {
+    setCountry(country);
+    router.push(`/${country}`);
+  }
+
   return (
-    <Select value={country} onValueChange={(country) => setCountry(country)}>
+    <Select value={country} onValueChange={(country) => handleChange(country)}>
       <SelectTrigger aria-label="Country Select">
         <SelectValue />
       </SelectTrigger>

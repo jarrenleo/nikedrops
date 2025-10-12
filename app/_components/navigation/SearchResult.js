@@ -65,7 +65,7 @@ export default function SearchResult({
   if (debouncedQuery && data)
     return (
       <Link
-        href={`/${data.sku}`}
+        href={`/${country}/${data.sku}`}
         onClick={() => handleClick(data.channel)}
         className="absolute top-10 z-10 flex w-full cursor-pointer items-center gap-2 rounded-md bg-muted px-4 py-3"
       >

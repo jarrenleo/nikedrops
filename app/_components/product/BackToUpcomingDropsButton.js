@@ -2,12 +2,14 @@
 
 import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
+import { useGlobalState } from "@/app/_providers/ContextProvider";
 
 export default function BackToUpcomingDropsButton() {
   const router = useRouter();
+  const { country } = useGlobalState();
 
   function handleClick() {
-    window.history.length > 2 ? router.back() : router.push("/");
+    country ? router.push(`/${country}`) : router.push("/");
   }
 
   return (

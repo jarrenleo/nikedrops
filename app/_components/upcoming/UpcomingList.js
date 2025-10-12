@@ -64,6 +64,7 @@ export default function UpcomingList() {
             {products.map((product) => (
               <UpcomingListItem
                 key={product.id}
+                country={country}
                 product={product}
                 isMobile={isMobile}
               />
