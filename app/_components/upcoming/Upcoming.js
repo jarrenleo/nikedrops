@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter, useParams, redirect } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { useGlobalState } from "@/app/_providers/ContextProvider";
 import TabSelect from "./TabSelect";
 import UpcomingList from "./UpcomingList";
