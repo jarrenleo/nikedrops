@@ -78,7 +78,7 @@ function formProductUrl(channel, country, slug) {
     launchPath = "";
 
   if (country !== "US") countryPath = `/${country.toLowerCase()}`;
-  if (channel === "UNKNOWN") launchPath = "/launch";
+  if (channel === "SNKRS Web") launchPath = "/launch";
 
   return `https://www.nike.com${countryPath}${launchPath}/t/${slug}`;
 }
@@ -88,7 +88,6 @@ export async function getProductData(channel, sku, country, timeZone) {
     const language = languages[country];
     let marketplace = country;
     if (country === "AU") marketplace = "ASTLA";
-    if (channel === "SNKRS Web") channel = "UNKNOWN";
 
     const { objects } = await fetchData(
       `https://api.nike.com/product_feed/threads/v3/?filter=marketplace(${marketplace})&filter=language(${language})&filter=channelName(${channel})&filter=productInfo.merchProduct.styleColor(${sku})&filter=exclusiveAccess(true,false)`,
@@ -100,7 +99,7 @@ export async function getProductData(channel, sku, country, timeZone) {
     const status = productInfo.merchProduct.status;
 
     let name = productInfo.productContent.fullTitle;
-    if (channel === "UNKNOWN")
+    if (channel === "SNKRS Web")
       name =
         extractPublishedName(country, sku, objects[0].publishedContent) ||
         productInfo.productContent.fullTitle;
