@@ -1,16 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 
 export default function ThemeProvider({ children, ...props }) {
-  const [isClient, setIsClient] = useState(false);
+  // React 19 warns when next-themes renders an executable script on the client.
+  const scriptProps =
+    typeof window === "undefined" ? undefined : { type: "application/json" };
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (!isClient) return null;
-
-  return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
+  return (
+    <NextThemesProvider {...props} scriptProps={scriptProps}>
+      {children}
+    </NextThemesProvider>
+  );
 }
