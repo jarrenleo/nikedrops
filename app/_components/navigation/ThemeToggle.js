@@ -14,9 +14,23 @@ export default function ThemeToggle() {
 
   const isDark = mounted && resolvedTheme === "dark";
 
+  function handleClick(e) {
+    const newTheme = isDark ? "light" : "dark";
+
+    if (!document.startViewTransition) {
+      setTheme(newTheme);
+      return;
+    }
+
+    document.documentElement.style.setProperty("--ripple-x", `${e.clientX}px`);
+    document.documentElement.style.setProperty("--ripple-y", `${e.clientY}px`);
+
+    document.startViewTransition(() => setTheme(newTheme));
+  }
+
   return (
     <button
-      onClick={() => setTheme(isDark ? "light" : "dark")}
+      onClick={handleClick}
       className="rounded-md p-2 transition-colors hover:bg-secondary"
       disabled={!mounted}
       aria-label="Theme toggle button"

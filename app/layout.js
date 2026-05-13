@@ -26,7 +26,6 @@ export default function RootLayout({ children }) {
             attribute="class"
             defaultTheme="system"
             enableSystem
-            disableTransitionOnChange
           >
             <ContextProvider>
               <div className="mx-auto flex min-h-screen max-w-7xl flex-1 flex-col">

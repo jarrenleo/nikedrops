@@ -78,6 +78,23 @@
   }
 }
 
+@keyframes theme-ripple {
+  from {
+    clip-path: circle(0 at var(--ripple-x) var(--ripple-y));
+  }
+  to {
+    clip-path: circle(150vmax at var(--ripple-x) var(--ripple-y));
+  }
+}
+
+::view-transition-old(root) {
+  animation: none;
+}
+
+::view-transition-new(root) {
+  animation: theme-ripple 0.5s ease-in-out;
+}
+
 @layer components {
   .loader {
     --uib-speed: 2.5s;
