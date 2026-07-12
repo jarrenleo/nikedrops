@@ -1,9 +1,5 @@
-import Loader from "@/app/_components/ui/Loader";
+import ProductSkeleton from "@/app/_components/product/ProductSkeleton";
 
 export default function Loading() {
-  return (
-    <div className="fixed inset-0 flex items-center justify-center">
-      <Loader />
-    </div>
-  );
+  return <ProductSkeleton />;
 }

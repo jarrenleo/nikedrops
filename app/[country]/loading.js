@@ -1,9 +1,5 @@
-import Loader from "@/app/_components/ui/Loader";
+import UpcomingSkeleton from "@/app/_components/upcoming/UpcomingSkeleton";
 
 export default function Loading() {
-  return (
-    <div className="fixed inset-0 flex items-center justify-center">
-      <Loader />
-    </div>
-  );
+  return <UpcomingSkeleton />;
 }

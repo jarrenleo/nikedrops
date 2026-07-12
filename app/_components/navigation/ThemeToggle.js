@@ -16,22 +16,39 @@ export default function ThemeToggle() {
 
   function handleClick(e) {
     const newTheme = isDark ? "light" : "dark";
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
 
-    if (!document.startViewTransition) {
+    if (!document.startViewTransition || prefersReducedMotion) {
       setTheme(newTheme);
       return;
     }
 
-    document.documentElement.style.setProperty("--ripple-x", `${e.clientX}px`);
-    document.documentElement.style.setProperty("--ripple-y", `${e.clientY}px`);
+    // Keyboard activation reports (0,0), fall back to the button's center
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX || rect.left + rect.width / 2;
+    const y = e.clientY || rect.top + rect.height / 2;
+    const r = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y),
+    );
 
-    document.startViewTransition(() => setTheme(newTheme));
+    document.documentElement.style.setProperty("--ripple-x", `${x}px`);
+    document.documentElement.style.setProperty("--ripple-y", `${y}px`);
+    document.documentElement.style.setProperty("--ripple-r", `${r}px`);
+
+    document.documentElement.classList.add("theme-transition");
+    const transition = document.startViewTransition(() => setTheme(newTheme));
+    transition.finished.finally(() =>
+      document.documentElement.classList.remove("theme-transition"),
+    );
   }
 
   return (
     <button
       onClick={handleClick}
-      className="rounded-md p-2 transition-colors hover:bg-secondary"
+      className="rounded-md p-2 transition hover:bg-secondary active:scale-95"
       disabled={!mounted}
       aria-label="Theme toggle button"
     >

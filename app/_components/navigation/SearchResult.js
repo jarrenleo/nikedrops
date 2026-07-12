@@ -50,14 +50,14 @@ export default function SearchResult({
 
   if (isPending && searchQuery.length > 9)
     return (
-      <div className="absolute top-10 z-10 flex w-full justify-center rounded-md bg-muted p-4">
+      <div className="absolute top-10 z-10 flex w-full justify-center rounded-md bg-muted p-4 duration-150 animate-in fade-in slide-in-from-top-1">
         <Loader height={30} width={30} />
       </div>
     );
 
   if (error)
     return (
-      <div className="absolute top-10 z-10 w-full rounded-md bg-muted p-4 text-center text-sm text-muted-foreground">
+      <div className="absolute top-10 z-10 w-full rounded-md bg-muted p-4 text-center text-sm text-muted-foreground duration-150 animate-in fade-in slide-in-from-top-1">
         {error.message}
       </div>
     );
@@ -67,7 +67,7 @@ export default function SearchResult({
       <Link
         href={`/${country}/${data.sku}`}
         onClick={() => handleClick(data.channel)}
-        className="absolute top-10 z-10 flex w-full cursor-pointer items-center gap-2 rounded-md bg-muted px-4 py-3"
+        className="absolute top-10 z-10 flex w-full cursor-pointer items-center gap-2 rounded-md bg-muted px-4 py-3 duration-150 animate-in fade-in slide-in-from-top-1"
       >
         <img
           src={data.imageUrl}

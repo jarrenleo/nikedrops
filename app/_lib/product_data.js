@@ -135,6 +135,7 @@ export async function getProductData(channel, sku, country, timeZone) {
       name,
       date,
       time,
+      releaseTimestamp: dateTimeObject.getTime(),
       sku,
       price,
       method,

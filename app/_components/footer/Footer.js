@@ -8,7 +8,7 @@ export default function Footer() {
         <Link
           href="https://github.com/jarrenleo"
           target="_blank"
-          className="font-semibold text-foreground underline hover:text-foreground/90 hover:transition-colors"
+          className="font-semibold text-foreground underline transition-colors hover:text-foreground/90"
         >
           Jarren Leo
         </Link>
@@ -16,7 +16,7 @@ export default function Footer() {
         <Link
           href="https://github.com/jarrenleo/nikedrops"
           target="_blank"
-          className="font-semibold text-foreground underline hover:text-foreground/90 hover:transition-colors"
+          className="font-semibold text-foreground underline transition-colors hover:text-foreground/90"
         >
           GitHub
         </Link>

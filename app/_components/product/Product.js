@@ -2,14 +2,17 @@
 
 import { useEffect } from "react";
 import { useParams } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useGlobalState } from "@/app/_providers/ContextProvider";
 import ProductLinks from "@/app/_components/product/ProductLinks";
 import ProductDetail from "@/app/_components/product/ProductDetail";
 import BackToUpcomingDropsButton from "@/app/_components/product/BackToUpcomingDropsButton";
+import CountdownTimer from "@/app/_components/product/CountdownTimer";
+import CopySkuButton from "@/app/_components/product/CopySkuButton";
+import ProductSkeleton from "@/app/_components/product/ProductSkeleton";
 import { getStatusColour, getStockLevelColour } from "@/app/_lib/utils";
-import Loader from "../ui/Loader";
-import { motion } from "motion/react";
+import Skeleton from "../ui/Skeleton";
+import FadeInImage from "../ui/FadeInImage";
 
 async function fetchProduct(channel, country, sku, timeZone) {
   try {
@@ -25,37 +28,51 @@ async function fetchProduct(channel, country, sku, timeZone) {
   }
 }
 
+function findProductInUpcomingCache(queryClient, channel, country, sku) {
+  const upcomingData = queryClient.getQueryData([
+    "upcomingCards",
+    channel,
+    country,
+  ]);
+  if (!upcomingData) return undefined;
+
+  for (const products of Object.values(upcomingData)) {
+    const match = products.find((product) => product.sku === sku);
+    if (match) {
+      const { status, name, price, imageUrl } = match;
+      return { status, name, sku, price, imageUrl };
+    }
+  }
+}
+
 export default function Product() {
   const params = useParams();
+  const queryClient = useQueryClient();
   const { channel, timeZone, setCountry } = useGlobalState();
-  const { isPending, error, data } = useQuery({
-    queryKey: [
-      "product",
-      channel,
-      params.country.toUpperCase(),
-      params.sku.toUpperCase(),
-      timeZone,
-    ],
-    queryFn: () =>
-      fetchProduct(
-        channel,
-        params.country.toUpperCase(),
-        params.sku.toUpperCase(),
-        timeZone,
-      ),
+  const country = params.country.toUpperCase();
+  const sku = params.sku.toUpperCase();
+
+  const { isPending, isPlaceholderData, error, data } = useQuery({
+    queryKey: ["product", channel, country, sku, timeZone],
+    queryFn: () => fetchProduct(channel, country, sku, timeZone),
+    // Seed from the upcoming list cache so the page (and the
+    // card → hero view transition) renders instantly
+    placeholderData: () =>
+      findProductInUpcomingCache(queryClient, channel, country, sku),
     retry: false,
     staleTime: Infinity,
   });
 
   useEffect(() => {
-    setCountry(params.country.toUpperCase());
+    setCountry(country);
   }, []);
 
   if (isPending)
     return (
-      <div className="fixed inset-0 flex items-center justify-center">
-        <Loader />
-      </div>
+      <>
+        <BackToUpcomingDropsButton />
+        <ProductSkeleton />
+      </>
     );
   if (error)
     return (
@@ -72,7 +89,7 @@ export default function Product() {
     name,
     date,
     time,
-    sku,
+    releaseTimestamp,
     price,
     method,
     cartLimit,
@@ -81,9 +98,29 @@ export default function Product() {
     imageUrl,
   } = data;
 
+  let sizesAndStockLevelsContent = "-";
+  if (isPlaceholderData) {
+    sizesAndStockLevelsContent = [0, 1, 2, 3, 4, 5].map((size) => (
+      <div key={size} className="flex flex-col gap-1">
+        <Skeleton className="h-4 w-10" />
+        <Skeleton className="h-5 w-16" />
+      </div>
+    ));
+  } else if (sizesAndStockLevels.length) {
+    sizesAndStockLevelsContent = sizesAndStockLevels.map(
+      ({ size, stockLevel }) => (
+        <ProductDetail key={size} label={size} value={stockLevel}>
+          <div
+            className={`${getStockLevelColour(stockLevel)} h-4 w-4 rounded-md`}
+          ></div>
+        </ProductDetail>
+      ),
+    );
+  }
+
   const productDetails = [
     { label: "Price", value: price },
-    { label: "SKU", value: sku },
+    { label: "SKU", value: data.sku },
     { label: "Method", value: method },
     { label: "Cart Limit", value: cartLimit },
     { label: "Date", value: date },
@@ -93,49 +130,59 @@ export default function Product() {
   return (
     <>
       <BackToUpcomingDropsButton />
-      <div className="px-4 pb-6 sm:mx-auto sm:max-w-xl">
-        <div className="relative mb-4 aspect-square duration-300 animate-in fade-in">
-          <div className="group relative overflow-hidden rounded-md">
-            <motion.img
-              src={imageUrl}
-              alt={name}
-              height={960}
-              width={960}
-              className="object-cover transition-transform duration-300 group-hover:scale-[1.025] group-hover:ease-out"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-            />
+      <div className="w-full px-4 pb-6 sm:mx-auto sm:max-w-xl md:grid md:max-w-4xl md:grid-cols-2 md:items-start md:gap-8">
+        <div>
+          <div className="relative mb-4 aspect-square">
             <div
-              className={`absolute bottom-2 right-2 cursor-default rounded-md bg-background px-2 py-1 text-xs font-semibold text-white ${getStatusColour(
-                status,
-              )}`}
+              className="group relative overflow-hidden rounded-md"
+              data-vt-hero=""
             >
-              {status}
+              <FadeInImage
+                src={imageUrl}
+                alt={name}
+                height={960}
+                width={960}
+                className="object-cover group-hover:scale-[1.025]"
+              />
+              <div
+                className={`absolute bottom-2 right-2 cursor-default rounded-md bg-background px-2 py-1 text-xs font-semibold text-white ${getStatusColour(
+                  status,
+                )}`}
+              >
+                {status}
+              </div>
             </div>
           </div>
+          <h2 className="mb-2 cursor-default text-lg font-semibold">{name}</h2>
+          {isPlaceholderData ? (
+            <div className="mb-4 flex items-center gap-2">
+              {[0, 1, 2, 3].map((link) => (
+                <Skeleton key={link} className="h-8 w-8" />
+              ))}
+            </div>
+          ) : (
+            <ProductLinks sku={data.sku} productUrl={productUrl} />
+          )}
         </div>
         <div className="text-sm">
-          <h2 className="mb-2 cursor-default text-lg font-semibold">{name}</h2>
-          <ProductLinks sku={sku} productUrl={productUrl} />
+          {releaseTimestamp && (
+            <CountdownTimer releaseTimestamp={releaseTimestamp} />
+          )}
           <div className="mb-4 grid grid-cols-2 gap-4">
             {productDetails.map(({ label, value }) => (
-              <ProductDetail key={label} label={label} value={value} />
+              <ProductDetail
+                key={label}
+                label={label}
+                value={value ?? <Skeleton className="h-5 w-24" />}
+              >
+                {label === "SKU" && <CopySkuButton sku={data.sku} />}
+              </ProductDetail>
             ))}
           </div>
           <div>
             <span className="text-muted-foreground">Sizes & Stock Levels</span>
             <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
-              {sizesAndStockLevels.length
-                ? sizesAndStockLevels.map(({ size, stockLevel }) => (
-                    <ProductDetail key={size} label={size} value={stockLevel}>
-                      <div
-                        className={`${getStockLevelColour(
-                          stockLevel,
-                        )} h-4 w-4 rounded-md`}
-                      ></div>
-                    </ProductDetail>
-                  ))
-                : "-"}
+              {sizesAndStockLevelsContent}
             </div>
           </div>
         </div>

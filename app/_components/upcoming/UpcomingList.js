@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useGlobalState } from "@/app/_providers/ContextProvider";
 import UpcomingListItem from "./UpcomingListItem";
-import Loader from "../ui/Loader";
+import UpcomingSkeleton from "./UpcomingSkeleton";
 
 async function fetchUpcomingData(channel, country, timeZone) {
   try {
@@ -38,12 +38,7 @@ export default function UpcomingList() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  if (isPending)
-    return (
-      <div className="fixed inset-0 flex items-center justify-center">
-        <Loader />
-      </div>
-    );
+  if (isPending) return <UpcomingSkeleton />;
   if (error)
     return (
       <div className="mt-8 text-balance text-center font-semibold">

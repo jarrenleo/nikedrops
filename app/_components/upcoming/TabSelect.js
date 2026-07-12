@@ -1,6 +1,7 @@
 "use client";
 
 import { useGlobalState } from "@/app/_providers/ContextProvider";
+import { motion } from "motion/react";
 
 const channelMap = {
   SNKRS: "SNKRS Web",
@@ -8,16 +9,23 @@ const channelMap = {
 };
 
 function Tab({ channelName, channel, setChannel }) {
+  const isActive = channelMap[channelName] === channel;
+
   return (
     <button
-      className={`border-b-2 px-4 py-2 ${
-        channelMap[channelName] === channel
-          ? "border-primary"
-          : "border-transparent text-muted-foreground"
+      className={`relative px-4 py-2 transition-colors ${
+        isActive ? "" : "text-muted-foreground"
       }`}
       onClick={() => setChannel(channelMap[channelName])}
     >
       {channelName}
+      {isActive && (
+        <motion.div
+          layoutId="active-tab-underline"
+          className="absolute inset-x-0 -bottom-px h-0.5 bg-primary"
+          transition={{ type: "spring", bounce: 0, duration: 0.3 }}
+        />
+      )}
     </button>
   );
 }

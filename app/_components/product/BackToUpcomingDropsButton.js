@@ -2,13 +2,26 @@
 
 import { useRouter, useParams } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
+import {
+  navigateWithViewTransition,
+  getPreviousPathname,
+} from "@/app/_lib/view_transition";
 
 export default function BackToUpcomingDropsButton() {
   const router = useRouter();
   const params = useParams();
 
   function handleClick() {
-    router.push(`/${params.country}`);
+    const listPath = `/${params.country}`;
+    // Going back through history restores the scroll position;
+    // pushing always lands at the top
+    const cameFromList =
+      getPreviousPathname()?.toLowerCase() === listPath.toLowerCase();
+
+    navigateWithViewTransition(
+      () => (cameFromList ? router.back() : router.push(listPath)),
+      params.sku?.toUpperCase(),
+    );
   }
 
   return (

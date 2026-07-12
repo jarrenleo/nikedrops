@@ -1,24 +1,53 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { getStatusColour } from "@/app/_lib/utils";
-import { motion } from "motion/react";
+import {
+  navigateWithViewTransition,
+  getTransitionSku,
+} from "@/app/_lib/view_transition";
+import FadeInImage from "../ui/FadeInImage";
+
+function useProductNavigation(country, sku) {
+  const router = useRouter();
+
+  return function handleClick(e) {
+    e.preventDefault();
+
+    // Only one element may carry the shared-element name at a time
+    document
+      .querySelectorAll("[data-vt-hero]")
+      .forEach((el) => el.removeAttribute("data-vt-hero"));
+    e.currentTarget
+      .querySelector("[data-hero-target]")
+      ?.setAttribute("data-vt-hero", "");
+
+    navigateWithViewTransition(() => router.push(`/${country}/${sku}`), sku);
+  };
+}
 
 function UpcomingListItemMobile({ product, country }) {
   const { status, name, sku, price, releaseTime, imageUrl } = product;
+  const handleClick = useProductNavigation(country, sku);
 
   return (
     <Link
       href={`/${country}/${sku}`}
+      onClick={handleClick}
       className="group flex cursor-pointer items-center justify-start gap-3 px-4 py-3 hover:bg-secondary"
     >
-      <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-md">
-        <motion.img
+      <div
+        className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-md"
+        data-hero-target=""
+        data-vt-hero={getTransitionSku() === sku ? "" : undefined}
+      >
+        <FadeInImage
           src={imageUrl}
           alt={name}
           height={80}
           width={80}
-          className="object-cover transition-transform duration-300 group-hover:scale-[1.025] group-hover:ease-out"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          className="object-cover group-hover:scale-[1.025]"
         />
       </div>
       <div className="flex flex-col gap-1.5 text-sm">
@@ -39,21 +68,25 @@ function UpcomingListItemMobile({ product, country }) {
 
 function UpcomingCardItem({ product, country }) {
   const { status, name, sku, price, releaseTime, imageUrl } = product;
+  const handleClick = useProductNavigation(country, sku);
 
   return (
     <Link
       href={`/${country}/${sku}`}
+      onClick={handleClick}
       className="group flex flex-col rounded-md"
     >
-      <div className="relative mb-4 overflow-hidden rounded-md">
-        <motion.img
+      <div
+        className="relative mb-4 overflow-hidden rounded-md"
+        data-hero-target=""
+        data-vt-hero={getTransitionSku() === sku ? "" : undefined}
+      >
+        <FadeInImage
           src={imageUrl}
           alt={name}
           height={720}
           width={720}
-          className="object-cover transition-transform duration-300 group-hover:scale-[1.025] group-hover:ease-out"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          className="object-cover group-hover:scale-[1.025]"
         />
         <span
           className={`absolute bottom-2 right-2 rounded-md px-2 py-1 text-xs font-semibold text-white ${getStatusColour(status)}`}
