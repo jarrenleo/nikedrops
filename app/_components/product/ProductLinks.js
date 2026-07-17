@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-export default function ProductLinks({ sku, productUrl }) {
+export default function ProductLinks({ sku, productUrl, className = "" }) {
   const productLinks = [
     {
       name: "Nike",
@@ -26,7 +26,7 @@ export default function ProductLinks({ sku, productUrl }) {
   ];
 
   return (
-    <div className="mb-4 flex items-center gap-2">
+    <div className={`mb-4 flex items-center gap-2 ${className}`}>
       {productLinks.map(({ name, image, url }) => (
         <Link key={name} href={url} target="_blank">
           <div className="overflow-hidden rounded-md">

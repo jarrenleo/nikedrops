@@ -19,9 +19,17 @@ export default function CopySkuButton({ sku }) {
       aria-label="Copy SKU to clipboard"
     >
       {isCopied ? (
-        <Check width={14} height={14} />
+        <Check
+          width={14}
+          height={14}
+          className="duration-200 ease-out animate-in fade-in zoom-in-50 motion-reduce:animate-none"
+        />
       ) : (
-        <Copy width={14} height={14} />
+        <Copy
+          width={14}
+          height={14}
+          className="duration-200 ease-out animate-in fade-in zoom-in-50 motion-reduce:animate-none"
+        />
       )}
     </button>
   );

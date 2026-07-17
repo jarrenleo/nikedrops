@@ -50,16 +50,22 @@ export default function CountdownTimer({ releaseTimestamp }) {
     return () => clearInterval(interval);
   }, [releaseTimestamp]);
 
-  if (!timeLeft) return null;
-
   return (
-    <div className="mb-4">
-      <span className="text-muted-foreground">Drops In</span>
-      <div className="mt-1 grid grid-cols-4 gap-2">
-        {Object.entries(timeLeft).map(([label, value]) => (
-          <CountdownUnit key={label} label={label} value={value} />
-        ))}
-      </div>
-    </div>
+    <AnimatePresence>
+      {timeLeft && (
+        <motion.div
+          className="mb-4 overflow-hidden"
+          exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+          transition={{ type: "spring", bounce: 0, duration: 0.3 }}
+        >
+          <span className="text-muted-foreground">Drops In</span>
+          <div className="mt-1 grid grid-cols-4 gap-2">
+            {Object.entries(timeLeft).map(([label, value]) => (
+              <CountdownUnit key={label} label={label} value={value} />
+            ))}
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

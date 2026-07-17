@@ -43,7 +43,10 @@ export default function Navigation() {
     >
       <div className="flex items-center gap-0.5">
         {!isSearchBarExpanded && !isSearchBarClosing ? (
-          <Link href="/" className="bg-muted text-xl font-bold">
+          <Link
+            href="/"
+            className="bg-muted text-xl font-bold duration-150 animate-in fade-in motion-reduce:animate-none"
+          >
             NIKE DROPS
           </Link>
         ) : (
@@ -74,7 +77,7 @@ export default function Navigation() {
         </div>
         {!isSearchBarExpanded && !isSearchBarClosing && (
           <button
-            className="rounded-md p-2 transition hover:bg-secondary active:scale-95"
+            className="rounded-md p-2 transition duration-150 animate-in fade-in hover:bg-secondary active:scale-95 motion-reduce:animate-none"
             onClick={() => setIsSearchBarExpanded(true)}
             aria-label="Search button"
           >

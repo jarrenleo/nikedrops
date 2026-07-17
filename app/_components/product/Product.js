@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useParams } from "next/navigation";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useGlobalState } from "@/app/_providers/ContextProvider";
@@ -66,6 +66,18 @@ export default function Product() {
   useEffect(() => {
     setCountry(country);
   }, []);
+
+  // Fade in the sections that swap from Skeletons to real values when the
+  // live fetch resolves; cached visits render full data on the first frame
+  // and skip the animation entirely
+  const wasPlaceholderRef = useRef(false);
+  const justResolved = wasPlaceholderRef.current && !isPlaceholderData;
+  useEffect(() => {
+    wasPlaceholderRef.current = isPlaceholderData;
+  });
+  const resolvedAnimation = justResolved
+    ? "duration-200 animate-in fade-in motion-reduce:animate-none"
+    : "";
 
   if (isPending)
     return (
@@ -161,14 +173,18 @@ export default function Product() {
               ))}
             </div>
           ) : (
-            <ProductLinks sku={data.sku} productUrl={productUrl} />
+            <ProductLinks
+              sku={data.sku}
+              productUrl={productUrl}
+              className={resolvedAnimation}
+            />
           )}
         </div>
         <div className="text-sm">
           {releaseTimestamp && (
             <CountdownTimer releaseTimestamp={releaseTimestamp} />
           )}
-          <div className="mb-4 grid grid-cols-2 gap-4">
+          <div className={`mb-4 grid grid-cols-2 gap-4 ${resolvedAnimation}`}>
             {productDetails.map(({ label, value }) => (
               <ProductDetail
                 key={label}
@@ -181,7 +197,9 @@ export default function Product() {
           </div>
           <div>
             <span className="text-muted-foreground">Sizes & Stock Levels</span>
-            <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
+            <div
+              className={`grid grid-cols-3 gap-2 sm:grid-cols-4 ${resolvedAnimation}`}
+            >
               {sizesAndStockLevelsContent}
             </div>
           </div>
