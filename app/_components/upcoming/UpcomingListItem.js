@@ -34,6 +34,10 @@ function UpcomingListItemMobile({ product, country }) {
   return (
     <Link
       href={`/${country}/${sku}`}
+      // Full prefetch so navigation commits the real product page (with its
+      // data-vt-hero element) instead of the loading skeleton — otherwise the
+      // card → hero morph is lost on deployed (dynamic) routes
+      prefetch={true}
       onClick={handleClick}
       className="group flex cursor-pointer items-center justify-start gap-3 px-4 py-3 hover:bg-secondary"
     >
@@ -73,6 +77,7 @@ function UpcomingCardItem({ product, country }) {
   return (
     <Link
       href={`/${country}/${sku}`}
+      prefetch={true}
       onClick={handleClick}
       className="group flex flex-col rounded-md"
     >

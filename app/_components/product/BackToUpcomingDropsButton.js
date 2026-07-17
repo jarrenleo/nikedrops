@@ -21,6 +21,7 @@ export default function BackToUpcomingDropsButton() {
     navigateWithViewTransition(
       () => (cameFromList ? router.back() : router.push(listPath)),
       params.sku?.toUpperCase(),
+      !cameFromList,
     );
   }
 

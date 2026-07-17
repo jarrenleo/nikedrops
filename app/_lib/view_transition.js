@@ -1,5 +1,6 @@
 let resolveViewTransition = null;
 let transitionSku = null;
+let resetScrollOnComplete = false;
 let currentPathname = null;
 let previousPathname = null;
 
@@ -18,11 +19,21 @@ export function getTransitionSku() {
 }
 
 export function completeViewTransition() {
+  // Next.js' own scroll reset misfires while a view transition holds the
+  // snapshot, so land pushed routes at the top ourselves
+  if (resetScrollOnComplete) {
+    resetScrollOnComplete = false;
+    window.scrollTo(0, 0);
+  }
   resolveViewTransition?.();
   resolveViewTransition = null;
 }
 
-export function navigateWithViewTransition(navigate, sku = null) {
+export function navigateWithViewTransition(
+  navigate,
+  sku = null,
+  resetScroll = true,
+) {
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
   ).matches;
@@ -33,6 +44,7 @@ export function navigateWithViewTransition(navigate, sku = null) {
   }
 
   transitionSku = sku;
+  resetScrollOnComplete = resetScroll;
   document.documentElement.classList.add("nav-transition");
 
   const transition = document.startViewTransition(() => {
@@ -44,5 +56,6 @@ export function navigateWithViewTransition(navigate, sku = null) {
   transition.finished.finally(() => {
     document.documentElement.classList.remove("nav-transition");
     transitionSku = null;
+    resetScrollOnComplete = false;
   });
 }

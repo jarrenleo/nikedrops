@@ -12,7 +12,11 @@ export default function ProductSkeleton() {
   return (
     <div className="w-full px-4 pb-6 sm:mx-auto sm:max-w-xl md:grid md:max-w-4xl md:grid-cols-2 md:items-start md:gap-8">
       <div>
-        <Skeleton className={`mb-4 ${aspectRatio} w-full`} />
+        {/* Carries the shared-element name so the card → hero morph still
+            plays if navigation commits before the product page arrives */}
+        <div className={`mb-4 ${aspectRatio}`} data-vt-hero="">
+          <Skeleton className="h-full w-full" />
+        </div>
         <Skeleton className="mb-2 h-6 w-3/4" />
         <div className="mb-4 flex items-center gap-2">
           {[0, 1, 2, 3].map((link) => (
